@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "mongoose": "^7.0.5",
+    "passport": "^0.6.0",
     "passport-telegram-official": "^2.0.1",
     "swagger-jsdoc": "^6.2.7",
     "swagger-ui-express": "^4.6.0",
@@ -36,6 +37,6 @@
     "prettier-plugin-organize-imports": "^3.2.2"
   },
   "nodemonConfig": {
-    "ext": "js, json, yml, yaml"
+    "ext": "js, json, yml, yaml, env"
   }
 }
