@@ -1,5 +1,5 @@
 import MongoAdapter from "./core/database/mongo-adapter.js";
-import Server from "./core/server";
+import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
 
 const APP_PORT = process.env.PORT || 7000;
