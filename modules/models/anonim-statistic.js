@@ -17,7 +17,7 @@ const anonymStatisticSchema = Schema({
         type: Date,
         index: true,
         default: Date.now,
-        expires: "2d"
+        expires: "1y"
     },
     pageCount: {
         type: Number,

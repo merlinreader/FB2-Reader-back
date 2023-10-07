@@ -1,8 +1,11 @@
 import MongoAdapter from "./core/database/mongo-adapter.js";
+import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
+import StatisticRouter from "./modules/statistic/router.js";
 
 const APP_PORT = process.env.PORT || 7000;
+const GLOBAL_PREFIX = process.env.PREFIX || "";
 
 new Server(APP_PORT, [
     new MongoAdapter({
@@ -12,12 +15,13 @@ new Server(APP_PORT, [
         login: process.env.MG_USER,
         password: process.env.MG_PASS
     }),
+    new Routing(GLOBAL_PREFIX, [{ prefix: "/statistic", router: StatisticRouter }]),
     new SwaggerDoc(
         {
             definition: {
                 openapi: "3.0.0",
                 info: {
-                    title: "AIRPROMAP MASTER-API SERVER",
+                    title: "Merlin MASTER-API SERVER",
                     version: "1.0.0",
                     description: "The REST API documentation for FB2-Master-Server.",
                     contact: {
