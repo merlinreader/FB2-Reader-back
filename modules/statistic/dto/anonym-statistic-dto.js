@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const anonymStatisticDTO = yup.object().shape({
+export const anonymStatisticDto = yup.object().shape({
     deviceId: yup.string().required(),
     country: yup.string().required(),
     city: yup.string().required(),

@@ -1,4 +1,6 @@
-import AnonymStatistic from "../models/anonim-statistic.js";
+import { Types } from "mongoose";
+import AnonymStatistic from "../models/anonym-statistic.js";
+import UserStatistic from "../models/user-statistic.js";
 
 class StatisticService {
     // TODO: DELETE PASS FUNC
@@ -7,7 +9,13 @@ class StatisticService {
     }
 
     async saveAnonymStatistic(anonymData) {
-        await new AnonymStatistic(anonymData);
+        const statisticId = new Types.ObjectId();
+        await new AnonymStatistic({ _id: statisticId, ...anonymData }).save();
+    }
+
+    async saveUserStatistic(pageCount, _id) {
+        const statisticId = new Types.ObjectId();
+        await new UserStatistic({ _id: statisticId, userId: _id, pageCount }).save();
     }
 }
 export default StatisticService;
