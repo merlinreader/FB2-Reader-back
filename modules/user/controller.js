@@ -23,6 +23,16 @@ class UserController {
             res.status(500).json({ message: "Something went wrong" });
         }
     }
+
+    async editGeo(req, res) {
+        try {
+            await this.#userService.editGeo(req.user._id, req.body.country, req.body.city);
+            res.status(200).json({ message: "Success" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Something went wrong" });
+        }
+    }
 }
 
 export default new UserController();

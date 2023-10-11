@@ -13,6 +13,10 @@ class UserService {
         await new User({ _id: userId, ...data }).save();
         return await TokenGuard.generate({ _id: userId, telegramId: data.telegramId });
     }
+
+    async editGeo(_id, country, city) {
+        return await User.findByIdAndUpdate(_id, { country, city });
+    }
 }
 
 export default UserService;

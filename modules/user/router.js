@@ -1,17 +1,23 @@
 import { Router } from "express";
+import { Validator } from "../../core/validation.js";
+import { TokenGuard } from "../common/middleware/token-guard.js";
 import UserController from "./controller.js";
+import { geoSetDTO } from "./dto/geo-dto.js";
 
 const router = new Router();
 
 router.get("/widget", (req, res) => {
-    res.send(`<!DOCTYPE html>
+    res.send(`
+  <!DOCTYPE html>
   <html>
   <body>
-  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="merlin_auth_bot" data-size="large" data-auth-url="https://aipro-energy.leam.pro/login" data-request-access="write"></script>
-</body>
-  <html>`);
+  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="merlin_auth_bot" data-size="large" data-auth-url="https://aipro-energy.leam.pro/account/login" data-request-access="write"></script>
+  </body>
+  <html>
+  `);
 });
 
-router.get("", UserController.login);
+router.get("/login", UserController.login);
+router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);
 
 export default router;

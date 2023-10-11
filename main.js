@@ -18,7 +18,7 @@ new Server(APP_PORT, [
     }),
     new Routing(GLOBAL_PREFIX, [
         { prefix: "/statistic", router: StatisticRouter },
-        { prefix: "/login", router: UserRouter }
+        { prefix: "/account", router: UserRouter }
     ]),
     new SwaggerDoc(
         {
