@@ -3,6 +3,7 @@ import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
 import StatisticRouter from "./modules/statistic/router.js";
+import UserRouter from "./modules/user/router.js";
 
 const APP_PORT = process.env.PORT || 7000;
 const GLOBAL_PREFIX = process.env.PREFIX || "";
@@ -15,7 +16,10 @@ new Server(APP_PORT, [
         login: process.env.MG_USER,
         password: process.env.MG_PASS
     }),
-    new Routing(GLOBAL_PREFIX, [{ prefix: "/statistic", router: StatisticRouter }]),
+    new Routing(GLOBAL_PREFIX, [
+        { prefix: "/statistic", router: StatisticRouter },
+        { prefix: "/login", router: UserRouter }
+    ]),
     new SwaggerDoc(
         {
             definition: {

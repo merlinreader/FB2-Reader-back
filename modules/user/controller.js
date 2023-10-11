@@ -1,0 +1,28 @@
+import autoBind from "auto-bind";
+import UserService from "./service.js";
+
+class UserController {
+    #userService;
+
+    constructor() {
+        autoBind(this);
+        this.#userService = new UserService();
+    }
+
+    async login(req, res) {
+        try {
+            const { id: telegramId, first_name: firstName, ...rest } = req.query;
+            const userData = { telegramId, firstName };
+            if (rest?.second_name) {
+                userData.secondName = rest.second_name;
+            }
+            const token = await this.#userService.loginUser(userData);
+            res.status(200).json({ token });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Something went wrong" });
+        }
+    }
+}
+
+export default new UserController();
