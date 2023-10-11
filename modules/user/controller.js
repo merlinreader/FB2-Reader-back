@@ -17,7 +17,7 @@ class UserController {
                 userData.secondName = rest.second_name;
             }
             const token = await this.#userService.loginUser(userData);
-            res.status(200).json({ token });
+            res.status(200).json(token);
         } catch (error) {
             console.log(error.message);
             res.status(500).json({ message: "Something went wrong" });
