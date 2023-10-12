@@ -1,0 +1,23 @@
+/statistic/user:
+  post:
+    tags:
+      - Statistic
+    security: [ ]
+    summary: Push user statistic
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ pageCount ]
+            properties:
+              pageCount:
+                type: integer
+                example: "Borat"
+  
+    responses:
+      "200":
+        description: OK
+      "500":
+        $ref: '#definitions/error'

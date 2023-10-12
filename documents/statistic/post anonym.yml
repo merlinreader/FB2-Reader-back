@@ -1,0 +1,32 @@
+/statistic/anonym:
+  post:
+    tags:
+      - Statistic
+    security: [ ]
+    summary: Push anonym statistic
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ deviceId, country, city, pageCount ]
+            properties:
+              deviceId:
+                type: string
+                example: 45765479
+              country:
+                type: string
+                example: "Borat"
+              city:
+                type: string
+                example: "Sagdiev"
+              pageCount:
+                type: integer
+                example: "Borat"
+  
+    responses:
+      "200":
+        description: OK
+      "500":
+        $ref: '#definitions/error'
