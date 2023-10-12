@@ -1,0 +1,26 @@
+/account/geo:
+  patch:
+    tags:
+      - User
+    summary: Edit user's country and city
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ country, city ]
+            properties:
+              country:
+                type: string
+                example: "Russia"
+              city:
+                type: string
+                example: "Tomsk"
+  
+    responses:
+      "200":
+        description: OK
+
+      "500":
+        $ref: '#definitions/error'
