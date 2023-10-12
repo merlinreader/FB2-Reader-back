@@ -2,7 +2,8 @@ import { Router } from "express";
 import { Validator } from "../../core/validation.js";
 import { TokenGuard } from "../common/middleware/token-guard.js";
 import UserController from "./controller.js";
-import { geoSetDTO } from "./dto/geo-dto.js";
+import { geoSetDTO } from "./dto/geo-edit-dto.js";
+import { nameEditDto } from "./dto/name-edit-dto.js";
 
 const router = new Router();
 
@@ -19,5 +20,6 @@ router.get("/widget", (req, res) => {
 
 router.get("/login", UserController.login);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);
+router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
 
 export default router;

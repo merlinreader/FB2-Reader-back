@@ -13,8 +13,8 @@ class UserController {
         try {
             const { id: telegramId, first_name: firstName, ...rest } = req.query;
             const userData = { telegramId, firstName };
-            if (rest?.second_name) {
-                userData.secondName = rest.second_name;
+            if (rest?.last_name) {
+                userData.lastName = rest.last_name;
             }
             const token = await this.#userService.loginUser(userData);
             res.status(200).json(token);
@@ -27,6 +27,16 @@ class UserController {
     async editGeo(req, res) {
         try {
             await this.#userService.editGeo(req.user._id, req.body.country, req.body.city);
+            res.status(200).json({ message: "Success" });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Something went wrong" });
+        }
+    }
+
+    async editName(req, res) {
+        try {
+            await this.#userService.editName(req.user._id, req.body);
             res.status(200).json({ message: "Success" });
         } catch (error) {
             console.log(error.message);

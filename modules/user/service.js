@@ -23,6 +23,10 @@ class UserService {
     async editGeo(_id, country, city) {
         return await User.findByIdAndUpdate(_id, { country, city });
     }
+
+    async editName(_id, data) {
+        return await User.findByIdAndUpdate(_id, data);
+    }
 }
 
 export default UserService;
