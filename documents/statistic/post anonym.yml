@@ -23,7 +23,7 @@
                 example: "Sagdiev"
               pageCount:
                 type: integer
-                example: "Borat"
+                example: 345345
   
     responses:
       "200":

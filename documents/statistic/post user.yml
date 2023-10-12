@@ -14,7 +14,7 @@
             properties:
               pageCount:
                 type: integer
-                example: "Borat"
+                example: 2353
   
     responses:
       "200":
