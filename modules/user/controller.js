@@ -11,12 +11,7 @@ class UserController {
 
     async login(req, res) {
         try {
-            const { id: telegramId, first_name: firstName, ...rest } = req.query;
-            const userData = { telegramId, firstName };
-            if (rest?.last_name) {
-                userData.lastName = rest.last_name;
-            }
-            const token = await this.#userService.loginUser(userData);
+            const token = await this.#userService.loginUser(req.body);
             res.status(200).json(token);
         } catch (error) {
             console.log(error.message);
