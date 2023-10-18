@@ -1,4 +1,28 @@
 import { model, Schema } from "mongoose";
+import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from "./achievements.js";
+
+const achievement = new Schema({
+    isReceived: {
+        type: Boolean,
+        default: false
+    },
+    dateAffiliation: {
+        type: String,
+        enum: Object.values(ACHIEVEMENTS_TIME_AFFILIATION)
+    },
+    date: {
+        type: Date,
+        index: true
+    },
+    regionalAffiliation: {
+        type: String,
+        enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION)
+    },
+    location: {
+        type: String,
+        index: true
+    }
+});
 
 const userSchema = new Schema({
     telegramId: {
@@ -17,6 +41,28 @@ const userSchema = new Schema({
     },
     city: {
         type: String
+    },
+    daysCounter: {
+        type: Number,
+        default: 0
+    },
+    // achievements: {
+    //     default: [],
+    //     type: [achievement]
+    // }
+    achievements: {
+        baby: {
+            type: achievement
+        },
+        spell: {
+            type: achievement
+        },
+        wordModeAchievements: {
+            type: [achievement]
+        },
+        baseModeAchievements: {
+            type: [achievement]
+        }
     }
 });
 

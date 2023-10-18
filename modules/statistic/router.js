@@ -9,8 +9,8 @@ const router = new Router();
 
 router.post("/anonym", Validator.validate(anonymStatisticDto), StatisticController.addAnonymStatistic);
 router.post("/user", TokenGuard.verify, Validator.validate(userStatisticDto), StatisticController.addUserStatistic);
-router.get("/daily");
-router.get("/monthly");
-router.get("/semi-annual");
+// router.get("/daily");
+// router.get("/monthly");
+// router.get("/semi-annual");
 
 export default router;
