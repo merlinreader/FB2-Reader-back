@@ -12,5 +12,6 @@ router.post("/user", TokenGuard.verify, Validator.validate(userStatisticDto), St
 // router.get("/daily");
 // router.get("/monthly");
 // router.get("/semi-annual");
+router.get("/annual", StatisticController.getAnnualStatistic);
 
 export default router;

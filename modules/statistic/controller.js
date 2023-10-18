@@ -27,6 +27,16 @@ class StatisticController {
             console.log(error.message);
         }
     }
+
+    async getAnnualStatistic(req, res) {
+        try {
+            const statistics = await this.#StatisticService.getAnnualStatistic();
+            res.status(200).json({ statistics });
+        } catch (error) {
+            res.status(500).json({ message: "Oops, something went wrong!!!" });
+            console.log(error.message);
+        }
+    }
 }
 
 export default new StatisticController();

@@ -9,6 +9,10 @@ const anonymStatisticSchema = Schema({
         type: String,
         required: true
     },
+    area: {
+        type: String,
+        required: true
+    },
     city: {
         type: String,
         required: true

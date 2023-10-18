@@ -1,5 +1,5 @@
 // import { ACHIEVEMENTS_REGIONAL_AFFILIATION } from "../models/achievements.js";
-// import userStatistic from "../models/user-statistic.js";
+import UserStatistic from "../models/user-statistic.js";
 // import User from "../models/user.js";
 
 // export default async () => {
@@ -7,3 +7,15 @@
 //     console.log(maxDailyStatistic.date);
 //     await User.findByIdAndUpdate(maxDailyStatistic.userId, { $push: { achievements: { date: maxDailyStatistic.date, type: ACHIEVEMENTS_REGIONAL_AFFILIATION.ALL } } });
 // };
+
+export default class JobsWithAchievements {
+    async #AggregateStatistic(firstDate, lastDate) {
+        return await UserStatistic.aggregate([
+            { $match: { date: { $gte: firstDate, $lte: lastDate } } },
+            { $group: { _id: "$userId", totalPageCount: { $sum: "$pageCount" } } },
+            { $sort: { totalPageCount: -1 } }
+        ]);
+    }
+
+    // async MonthStatistic() {}
+}

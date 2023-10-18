@@ -17,10 +17,6 @@ const achievement = new Schema({
     regionalAffiliation: {
         type: String,
         enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION)
-    },
-    location: {
-        type: String,
-        index: true
     }
 });
 
@@ -39,6 +35,9 @@ const userSchema = new Schema({
     country: {
         type: String
     },
+    area: {
+        type: String
+    },
     city: {
         type: String
     },
@@ -46,10 +45,6 @@ const userSchema = new Schema({
         type: Number,
         default: 0
     },
-    // achievements: {
-    //     default: [],
-    //     type: [achievement]
-    // }
     achievements: {
         baby: {
             type: achievement

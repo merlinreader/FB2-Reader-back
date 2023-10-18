@@ -9,7 +9,7 @@
         application/json:
           schema:
             type: object
-            required: [ country, city ]
+            required: [ country, city, area ]
             properties:
               country:
                 type: string
@@ -17,6 +17,9 @@
               city:
                 type: string
                 example: "Tomsk"
+              area:
+                type: string
+                example: "Tomskaya oblast"
   
     responses:
       "200":

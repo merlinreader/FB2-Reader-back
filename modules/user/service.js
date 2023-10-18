@@ -6,17 +6,14 @@ import User from "../models/user.js";
 
 class UserService {
     #createAchievements() {
-        const nonReceivedAchievements = [];
-        for (const regional of Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION)) {
-            for (const date of Object.values(ACHIEVEMENTS_TIME_AFFILIATION)) {
-                nonReceivedAchievements.push({
-                    isReceived: false,
-                    dateAffiliation: date,
-                    regionalAffiliation: regional
-                });
-            }
-        }
-        const achievements = {
+        const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) =>
+            Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date) => ({
+                isReceived: false,
+                dateAffiliation: date,
+                regionalAffiliation: regional
+            }))
+        );
+        return {
             baby: {
                 isReceived: true,
                 date: Date.now()
@@ -27,7 +24,7 @@ class UserService {
             wordModeAchievements: nonReceivedAchievements,
             baseModeAchievements: nonReceivedAchievements
         };
-        return achievements;
+        // return achievements;
     }
 
     async loginUser(data) {
@@ -50,8 +47,8 @@ class UserService {
         };
     }
 
-    async editGeo(_id, country, city) {
-        return await User.findByIdAndUpdate(_id, { country, city });
+    async editGeo(_id, data) {
+        return await User.findByIdAndUpdate(_id, data);
     }
 
     async editName(_id, data) {
