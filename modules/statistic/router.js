@@ -3,6 +3,7 @@ import { Validator } from "../../core/validation.js";
 import { TokenGuard } from "../common/middleware/token-guard.js";
 import StatisticController from "./controller.js";
 import { anonymStatisticDto } from "./dto/anonym-statistic-dto.js";
+import { getStatisticsDto } from "./dto/get-statistic-dto.js";
 import { userStatisticDto } from "./dto/user-statistic-dto.js";
 
 const router = new Router();
@@ -12,6 +13,6 @@ router.post("/user", TokenGuard.verify, Validator.validate(userStatisticDto), St
 // router.get("/daily");
 // router.get("/monthly");
 // router.get("/semi-annual");
-router.get("/annual", StatisticController.getAnnualStatistic);
+router.get("/annual", Validator.validate(getStatisticsDto), StatisticController.getAnnualStatistic);
 
 export default router;

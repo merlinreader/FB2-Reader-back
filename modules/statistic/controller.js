@@ -30,8 +30,8 @@ class StatisticController {
 
     async getAnnualStatistic(req, res) {
         try {
-            const statistics = await this.#StatisticService.getAnnualStatistic();
-            res.status(200).json({ statistics });
+            const statistics = await this.#StatisticService.getAnnualStatistic(req.query);
+            res.status(200).json(statistics);
         } catch (error) {
             res.status(500).json({ message: "Oops, something went wrong!!!" });
             console.log(error.message);

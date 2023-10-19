@@ -16,7 +16,7 @@ class StatisticService {
         await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } });
     }
 
-    async getAnnualStatistic() {
+    async getAnnualStatistic(data) {
         const startOfYear = new Date();
         startOfYear.setMonth(0, 1);
         startOfYear.setHours(0, 0, 0, 0);
@@ -25,7 +25,15 @@ class StatisticService {
         endOfYear.setHours(23, 59, 59, 999);
         const usersStatistics = await aggregateUserStatistic(startOfYear, endOfYear);
         const anonymsStatistics = await aggregateAnonymStatistic(startOfYear, endOfYear);
-        const generalStatistic = [...usersStatistics, ...anonymsStatistics];
+        const generalStatistic = [...usersStatistics, ...anonymsStatistics].filter((item) => {
+            if (data.area && item.area !== data.area) {
+                return false;
+            }
+            if (data.city && item.city !== data.city) {
+                return false;
+            }
+            return true;
+        });
         return generalStatistic.sort((a, b) => {
             if (a.totalPageCount < b.totalPageCount) {
                 return 1;
