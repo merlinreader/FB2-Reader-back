@@ -1,0 +1,40 @@
+/account/login:
+  post:
+    tags:
+      - User
+    security: [ ]
+    summary: Authorization in system
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ telegramId, firstName ]
+            properties:
+              telegramId:
+                type: string
+                example: 45765479
+              firstName:
+                type: string
+                example: "Borat"
+              lastName:
+                type: string
+                example: "Sagdiev"
+  
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NGY1O1ODkwYyIsImlxNjk4NDc5MDg2fQ.nr1iX_rDrYwlS2mytMrU0KPZ3ndX4rEjheAPHd-w0
+                _id:
+                  type: string
+                  example: 6527bae2486e86bda975fcd1
+      "500":
+        $ref: '#definitions/error'

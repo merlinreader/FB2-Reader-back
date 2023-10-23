@@ -1,0 +1,91 @@
+definitions:
+
+  validations:
+    description: Unprocessable Entity
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            errors:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    example: min
+                  stack:
+                    type: array
+                    items:
+                      type: string
+                      example: <field>
+                  message:
+                    type: string
+                    example: <field> must be at least 8 characters
+
+  bad-request:
+    description: Bad request
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Invalid data
+
+  unauthorized:
+    description: Unauthorized
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: You need authorization
+
+  forbidden:
+    description: Forbidden
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Account is not verified
+
+  not-found:
+    description: Not found
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Not found
+
+  conflict:
+    description: Conflict
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Already exists
+
+  error:
+    description: Error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Oops, something went wrong

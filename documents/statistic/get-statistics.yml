@@ -1,0 +1,37 @@
+/statistic/{period}:
+  get:
+    tags:
+      - Statistic
+    security: [ ]
+    summary: Get annual statistics
+    parameters:
+      - in: query
+        name: area
+        schema:
+          type: string
+          example: Tomskaya
+      - in: query
+        name: city
+        schema:
+          type: string
+          example: Tomsk
+      - in: query
+        name: sortBy
+        schema:
+          type: string
+          enum: [totalPageCountWordMode, totalPageCountSimpleMode, wordsCounter]
+          example: totalPageCountWordMode
+        required: true
+      - in: path
+        name: period
+        schema:
+          type: string
+          enum: [annual, semi-annual, monthly, weekly, daily]
+          example: annual
+        required: true
+  
+    responses:
+      "200":
+        description: OK
+      "500":
+        $ref: '#definitions/error'

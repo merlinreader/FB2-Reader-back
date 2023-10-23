@@ -1,0 +1,57 @@
+name: FB2-BACK-CI/CD-STAGE
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  CR_IMG: cr.yandex/crpu7updv7ejmkf4tjqu/fb2-backend
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+      
+    steps:
+      - name: getting src
+        uses: actions/checkout@v3
+        with:
+          ref: main
+        
+      - name: YC Registry login
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_CR }}
+
+      - name: build docker
+        run: |
+          docker build -t $CR_IMG .
+          docker push $CR_IMG
+
+  deploy-app:
+    runs-on: [self-hosted, nexus, back]
+    needs: [build-and-publish]
+
+    steps:
+      - name: getting src
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: YC Registry login
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_CR }}
+
+      - name: deploy app
+        run: |
+          docker pull $CR_IMG
+          docker compose down || true
+          docker compose --env-file .env.stage up -d
+
+      - name: clean up
+        run: |
+          docker image prune -f
+          rm -rf ./*
+          rm -rf ./.??*

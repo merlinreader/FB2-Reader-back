@@ -1,0 +1,25 @@
+/account/name:
+  patch:
+    tags:
+      - User
+    summary: Edit user's first name and last name
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+                example: "Borat"
+              lastName:
+                type: string
+                example: "Sagdiev"
+  
+    responses:
+      "200":
+        description: OK
+
+      "500":
+        $ref: '#definitions/error'

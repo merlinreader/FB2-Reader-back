@@ -1,0 +1,38 @@
+version: '3.7'
+
+services:
+  mongo:
+    image: mongo
+    container_name: fb2-mongo
+    restart: always
+    ports:
+      - 30010:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MG_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MG_PASS
+    volumes:
+      - fb2-mongo-data:/data/db
+      - fb2-mongo-config:/data/configdb
+    networks:
+      - fb2-net
+
+  backend:
+    image: cr.yandex/crpu7updv7ejmkf4tjqu/fb2-backend
+    container_name: fb2-back
+    restart: always
+    env_file:
+      - .env.stage
+    ports:
+      - 127.0.0.1:30011:7000
+    networks:
+      - fb2-net
+    depends_on:
+      - mongo
+
+networks:
+  fb2-net:
+    driver: bridge
+
+volumes:
+  fb2-mongo-data:
+  fb2-mongo-config:
