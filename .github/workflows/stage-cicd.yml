@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - cicd
-      
+
+env:
+  CR_IMG: cr.yandex/crpu7updv7ejmkf4tjqu/fb2-backend
+
 jobs:
-  build-and-deploy:
-    runs-on: [self-hosted, r01, back]
+  build-and-publish:
+    runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      WORKDIR: fb2-backend
-      CRIMG: cr.yandex/crpu7updv7ejmkf4tjqu/fb2-backend
       
     steps:
       - name: getting src
@@ -25,18 +25,36 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.YC_CR }}
 
       - name: build docker
-        env:
-          CR_ID: crpu7updv7ejmkf4tjqu
-          CR_IMG: fb2-backend
         run: |
-          docker build -t cr.yandex/$CR_ID/$CR_IMG .
-          docker push cr.yandex/$CR_ID/$CR_IMG
+          docker build -t $CR_IMG
+          docker push $CR_IMG
+
+  deploy-app:
+    runs-on: [self-hosted, nexus, back]
+    needs: [build-and-publish]
+
+    steps:
+      - name: getting src
+        uses: actions/checkout@v3
+        with:
+          ref: cicd
+
+      - name: YC Registry login
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_CR }}
 
       - name: deploy app
         run: |
-          echo "${{ secrets.DEPLOYER_KEY }}" > key && chmod 600 key
-          ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "echo ${{ secrets.YC_CR }} | docker login -u json_key --password-stdin cr.yandex"
-          ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "mkdir -p ~/$WORKDIR && docker pull $CRIMG"
+          docker pull $CR_IMG
+          docker compose down || true
+          ls -la
+
+      # - name: deploy app
+      #   run: |
+      #     echo "${{ secrets.DEPLOYER_KEY }}" > key && chmod 600 key
+      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "echo ${{ secrets.YC_CR }} | docker login -u json_key --password-stdin cr.yandex"
+      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "mkdir -p ~/$WORKDIR && docker pull $CRIMG"
     # scp -i key -o StrictHostKeyChecking=no .env.dev dev.docker-compose.yml deployer@${{ secrets.HOST }}:~/$WORKDIR
     # ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "cd ~/$WORKDIR && docker compose down || true"
     # ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "cd ~/$WORKDIR && docker compose -f dev.docker-compose.yml --env-file .env.dev up -d"
