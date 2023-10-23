@@ -6,7 +6,7 @@
   
     responses:
       "200":
-        description: OK (ordering by date ASC)
+        description: OK
         content:
           application/json:
             schema:
