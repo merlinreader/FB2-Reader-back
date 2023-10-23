@@ -20,7 +20,7 @@ class StatisticController {
 
     async addUserStatistic(req, res) {
         try {
-            await this.#StatisticService.saveUserStatistic(req.body.pageCount, req.user._id);
+            await this.#StatisticService.saveUserStatistic(req.user._id, req.body);
             res.status(201).json();
         } catch (error) {
             res.status(500).json({ message: "Oops, something went wrong!!!" });
@@ -28,9 +28,9 @@ class StatisticController {
         }
     }
 
-    async getAnnualStatistic(req, res) {
+    async getStatistic(req, res) {
         try {
-            const statistics = await this.#StatisticService.getAnnualStatistic(req.query);
+            const statistics = await this.#StatisticService.getStatistic(req.query, req.params.period);
             res.status(200).json(statistics);
         } catch (error) {
             res.status(500).json({ message: "Oops, something went wrong!!!" });

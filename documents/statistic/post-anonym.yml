@@ -10,7 +10,7 @@
         application/json:
           schema:
             type: object
-            required: [ deviceId, country, city, pageCount ]
+            required: [ deviceId, country, city, pageCountSimpleMode ]
             properties:
               deviceId:
                 type: string
@@ -21,7 +21,7 @@
               city:
                 type: string
                 example: "Sagdiev"
-              pageCount:
+              pageCountSimpleMode:
                 type: integer
                 example: 345345
   

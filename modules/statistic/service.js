@@ -5,26 +5,40 @@ import UserStatistic from "../models/user-statistic.js";
 import User from "../models/user.js";
 
 class StatisticService {
+    async #getPeriod(period) {
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() - 1);
+        endDate.setHours(23, 59, 59, 999);
+        const startDate = new Date(endDate);
+        if (period == "annual") {
+            startDate.setFullYear(endDate.getFullYear() - 1);
+        } else if (period == "semi-annual") {
+            startDate.setMonth(endDate.getMonth() - 6);
+        } else if (period == "monthly") {
+            startDate.setMonth(endDate.getMonth() - 1);
+        } else if (period == "weekly") {
+            startDate.setDate(endDate.getDate() - 7);
+        } else if (period == "daily") {
+            startDate.setDate(endDate.getDate() - 1);
+        }
+        return { startDate, endDate };
+    }
+
     async saveAnonymStatistic(anonymData) {
         const statisticId = new Types.ObjectId();
         await new AnonymStatistic({ _id: statisticId, ...anonymData }).save();
     }
 
-    async saveUserStatistic(pageCount, _id) {
+    async saveUserStatistic(_id, data) {
         const statisticId = new Types.ObjectId();
-        await new UserStatistic({ _id: statisticId, userId: _id, pageCount }).save();
+        await new UserStatistic({ _id: statisticId, userId: _id, ...data }).save();
         await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } });
     }
 
-    async getAnnualStatistic(data) {
-        const startOfYear = new Date();
-        startOfYear.setMonth(0, 1);
-        startOfYear.setHours(0, 0, 0, 0);
-        const endOfYear = new Date();
-        endOfYear.setMonth(11, 31);
-        endOfYear.setHours(23, 59, 59, 999);
-        const usersStatistics = await aggregateUserStatistic(startOfYear, endOfYear);
-        const anonymsStatistics = await aggregateAnonymStatistic(startOfYear, endOfYear);
+    async getStatistic(data, period) {
+        const { startDate, endDate } = await this.#getPeriod(period);
+        const usersStatistics = await aggregateUserStatistic(startDate, endDate);
+        const anonymsStatistics = await aggregateAnonymStatistic(startDate, endDate);
         const generalStatistic = [...usersStatistics, ...anonymsStatistics].filter((item) => {
             if (data.area && item.area !== data.area) {
                 return false;
@@ -35,10 +49,10 @@ class StatisticService {
             return true;
         });
         return generalStatistic.sort((a, b) => {
-            if (a.totalPageCount < b.totalPageCount) {
+            if (a[data.sortBy] < b[data.sortBy]) {
                 return 1;
             }
-            if (a.totalPageCount > b.totalPageCount) {
+            if (a[data.sortBy] > b[data.sortBy]) {
                 return -1;
             }
             return 0;

@@ -1,5 +1,6 @@
 import * as yup from "yup";
 
 export const userStatisticDto = yup.object().shape({
-    pageCount: yup.number().min(0).required()
+    pageCountSimpleMode: yup.number().min(0).required(),
+    pageCountWordMode: yup.number().min(0).required()
 });

@@ -4,7 +4,13 @@ import UserStatistic from "../../models/user-statistic.js";
 export const aggregateUserStatistic = async (firstDate, lastDate) => {
     return await UserStatistic.aggregate([
         { $match: { date: { $gte: firstDate, $lte: lastDate } } },
-        { $group: { _id: "$userId", totalPageCount: { $sum: "$pageCount" } } },
+        {
+            $group: {
+                _id: "$userId",
+                totalPageCountSimpleMode: { $sum: "$pageCountSimpleMode" },
+                totalPageCountWordMode: { $sum: "$pageCountWordMode" }
+            }
+        },
         {
             $lookup: {
                 from: "users",
@@ -17,13 +23,16 @@ export const aggregateUserStatistic = async (firstDate, lastDate) => {
             $project: {
                 _id: true,
                 telegramId: "$user.telegramId",
+                firstName: "$user.firstName",
                 country: "$user.country",
                 area: "$user.area",
                 city: "$user.city",
-                totalPageCount: true
+                totalPageCountSimpleMode: true,
+                totalPageCountWordMode: true
             }
         },
         { $unwind: "$telegramId" },
+        { $unwind: "$firstName" },
         { $unwind: "$country" },
         { $unwind: "$area" },
         { $unwind: "$city" }
@@ -36,13 +45,24 @@ export const aggregateAnonymStatistic = async (firstDate, lastDate) => {
         {
             $group: {
                 _id: "$deviceId",
-                totalPageCount: { $sum: "$pageCount" },
+                totalPageCountSimpleMode: { $sum: "$pageCountSimpleMode" },
+                totalPageCountWordMode: { $sum: "$pageCountWordMode" },
                 country: { $addToSet: "$country" },
                 area: { $addToSet: "$area" },
                 city: { $addToSet: "$city" }
             }
         },
-
+        {
+            $project: {
+                _id: true,
+                firstName: "merlin",
+                totalPageCountSimpleMode: true,
+                totalPageCountWordMode: true,
+                country: true,
+                area: true,
+                city: true
+            }
+        },
         { $unwind: "$country" },
         { $unwind: "$area" },
         { $unwind: "$city" }
