@@ -1,7 +1,9 @@
 node_modules
 .env
+.env.stage
 .eslintrc.cjs
+.prettierrc
 .gitignore
 .git
-.prettierrc
+.github
 README.md
