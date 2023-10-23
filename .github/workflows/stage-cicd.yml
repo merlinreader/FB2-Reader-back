@@ -48,18 +48,10 @@ jobs:
         run: |
           docker pull $CR_IMG
           docker compose down || true
-          ls -la
+          docker compose --env-file .env.stage up -d
 
-      # - name: deploy app
-      #   run: |
-      #     echo "${{ secrets.DEPLOYER_KEY }}" > key && chmod 600 key
-      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "echo ${{ secrets.YC_CR }} | docker login -u json_key --password-stdin cr.yandex"
-      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "mkdir -p ~/$WORKDIR && docker pull $CRIMG"
-    # scp -i key -o StrictHostKeyChecking=no .env.dev dev.docker-compose.yml deployer@${{ secrets.HOST }}:~/$WORKDIR
-    # ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "cd ~/$WORKDIR && docker compose down || true"
-    # ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "cd ~/$WORKDIR && docker compose -f dev.docker-compose.yml --env-file .env.dev up -d"
-  
-      # - name: cleanUp
-      #   run: |
-      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "rm -rf ~/$WORKDIR"
-      #     ssh -i key -o StrictHostKeyChecking=no deployer@${{ secrets.HOST }} "docker image prune -f"
+      - name: clean up
+        run: |
+          docker image prune -f
+          rm -rf ./*
+          rm -rf ./.??*
