@@ -23,5 +23,6 @@ router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);
 router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
+router.get("/achievements", TokenGuard.verify, UserController.getAchievements)
 
 export default router;

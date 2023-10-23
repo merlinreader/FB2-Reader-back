@@ -47,6 +47,15 @@ class UserController {
             res.status(500).json({ message: "Something went wrong" });
         }
     }
+
+    async getAchievements(req, res) {
+        try {
+            res.status(200).json(await this.#userService.getAchievements(req.user._id));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Something went wrong" });
+        }
+    }
 }
 
 export default new UserController();

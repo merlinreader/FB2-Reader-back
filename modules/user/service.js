@@ -58,6 +58,10 @@ class UserService {
     async getSelfData(_id) {
         return await User.findById(_id).select("-achievements");
     }
+
+    async getAchievements(_id) {
+        return await User.findById(_id).select("_id achievements");
+    }
 }
 
 export default UserService;
