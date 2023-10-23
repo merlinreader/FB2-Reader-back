@@ -38,6 +38,15 @@ class UserController {
             res.status(500).json({ message: "Something went wrong" });
         }
     }
+
+    async getSelfData(req, res) {
+        try {
+            res.status(200).json(await this.#userService.getSelfData(req.user._id));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: "Something went wrong" });
+        }
+    }
 }
 
 export default new UserController();

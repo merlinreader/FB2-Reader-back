@@ -54,6 +54,10 @@ class UserService {
     async editName(_id, data) {
         return await User.findByIdAndUpdate(_id, data);
     }
+
+    async getSelfData(_id) {
+        return await User.findById(_id).select("-achievements");
+    }
 }
 
 export default UserService;

@@ -1,0 +1,41 @@
+/account/:
+  get:
+    tags:
+      - User
+    summary: Get user's data
+  
+    responses:
+      "200":
+        description: OK (ordering by date ASC)
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                _id:
+                  type: string
+                  example: 6536363078887dbb85e47d49
+                telegramId:
+                  type: integer
+                  example: 346545756756754
+                firstName:
+                  type: string
+                  example: Borat
+                lastName:
+                  type: string
+                  example: Sogdiev
+                daysCounter:
+                  type: integer
+                  example: 1
+                area:
+                  type: string
+                  example: Tomskaya Obl
+                city:
+                  type: string
+                  example: Tomsk
+                country:
+                  type: string
+                  example: Russia
+
+      "500":
+        $ref: '#definitions/error'
