@@ -13,7 +13,7 @@ router.get("/widget", (req, res) => {
   <!DOCTYPE html>
   <html>
   <body>
-  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="merlin_auth_bot" data-size="large" data-auth-url="https://aipro-energy.leam.pro/account/login" data-request-access="write"></script>
+  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="merlin_auth_bot" data-size="large" data-auth-url="https://fb2.cloud.leam.pro/api/account/login" data-request-access="write"></script>
   </body>
   <html>
   `);
