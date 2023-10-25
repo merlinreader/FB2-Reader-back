@@ -56,11 +56,23 @@ class UserService {
     }
 
     async getSelfData(_id) {
-        return await User.findById(_id).select("-achievements");
+        return await User.findById(_id).select("-achievements -words");
     }
 
     async getAchievements(_id) {
         return await User.findById(_id).select("_id achievements");
+    }
+
+    async putWords(_id, words) {
+        const user = await User.findById(_id);
+        if (words.length > user.wordsCounter - user.words.length) return false;
+        user.words = [...user.words, ...words];
+        user.save();
+        return words;
+    }
+
+    async getWords(_id) {
+        return await User.findById(_id).select("_id words");
     }
 }
 
