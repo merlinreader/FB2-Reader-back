@@ -66,9 +66,7 @@ class UserService {
     async putWords(_id, words) {
         const user = await User.findById(_id);
         if (words.length > user.wordsCounter - user.words.length) return [false, user.wordsCounter - user.words.length];
-        // user.words = [...user.words, ...words];
         user.words = Array.from(new Set([...user.words, ...words]));
-        // user.words = Array.from(new Set(user.words, words));
         user.save();
         return [true, user.words];
     }
