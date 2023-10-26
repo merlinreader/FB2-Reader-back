@@ -24,7 +24,6 @@ class StatisticController {
             res.status(201).json();
         } catch (error) {
             res.status(500).json({ message: "Oops, something went wrong!!!" });
-            console.log(error.message);
         }
     }
 
@@ -34,7 +33,6 @@ class StatisticController {
             res.status(200).json(statistics);
         } catch (error) {
             res.status(500).json({ message: "Oops, something went wrong!!!" });
-            console.log(error.message);
         }
     }
 }
