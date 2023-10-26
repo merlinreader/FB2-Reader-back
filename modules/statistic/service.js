@@ -32,7 +32,9 @@ class StatisticService {
     async saveUserStatistic(_id, data) {
         const statisticId = new Types.ObjectId();
         await new UserStatistic({ _id: statisticId, userId: _id, ...data }).save();
-        await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } });
+        const user = await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } }, { new: true });
+        if (user.daysCounter >= 7) user.achievements.spell.isReceived = true;
+        user.save();
     }
 
     async getStatistic(data, period) {
