@@ -1,0 +1,46 @@
+/account/achievements:
+  get:
+    tags:
+      - User
+    summary: Get user's achievements
+  
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                baby:
+                  type: object
+                  properties:
+                    isReceived:
+                      type: boolean
+                      example: true
+                    date:
+                      type: date
+                      example: '2023-10-25T11:46:18.437+00:00'
+                    _id:
+                      type: string
+                      example: 6539000a7809f92285a59cba
+                spell:
+                  type: object
+                  properties:
+                    isReceived:
+                      type: boolean
+                      example: true
+                    _id:
+                      type: string
+                      example: 6539000a7809f92285a59cba
+                wordModeAchievements:
+                  type: array
+                  items:
+                    $ref: '#definitions/achievement' 
+                baseModeAchievements:
+                  type: array
+                  items:
+                    $ref: '#definitions/achievement' 
+
+      "500":
+        $ref: '#definitions/error'

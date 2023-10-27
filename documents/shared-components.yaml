@@ -23,6 +23,21 @@ definitions:
                   message:
                     type: string
                     example: <field> must be at least 8 characters
+  achievement:
+    type: object
+    properties:
+      isReceived:
+        type: boolean
+        example: true
+      dateAffiliation:
+        type: string
+        example: 1d
+      regionalAffiliation:
+        type: string
+        example: all
+      _id:
+        type: string
+        example: 6539000a7809f92285a59cba
 
   bad-request:
     description: Bad request
