@@ -31,5 +31,16 @@
                     type: string
                     example: words
 
+      "403":
+        description: Conflict
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: У вас осталось 5 свободных слов
+
       "500":
         $ref: '#definitions/error'
