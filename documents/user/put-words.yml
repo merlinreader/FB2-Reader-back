@@ -1,0 +1,35 @@
+/statistic/words:
+  put:
+    tags:
+      - User
+    summary: Put user's words
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ words ]
+            properties:
+              words:
+                type: array
+                items:
+                  type: string
+                  example: words
+  
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userWords:
+                  type: array
+                  items:
+                    type: string
+                    example: words
+
+      "500":
+        $ref: '#definitions/error'
