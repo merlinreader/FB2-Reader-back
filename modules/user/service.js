@@ -6,25 +6,34 @@ import User from "../models/user.js";
 
 class UserService {
     #createAchievements() {
-        const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) =>
+        let counter = 0;
+        const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
             Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date) => ({
+                name: `${name}${counter}`,
+                description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: date,
                 regionalAffiliation: regional
-            }))
-        );
+            }));
+            counter += 1;
+        });
         return {
             baby: {
+                name: "baby",
+                picture: "url",
+                description: "Первый вход в игру",
                 isReceived: true,
                 date: Date.now()
             },
             spell: {
+                name: "spell",
+                description: "7 дней с нами",
+                picture: "spell",
                 isReceived: false
             },
             wordModeAchievements: nonReceivedAchievements,
             baseModeAchievements: nonReceivedAchievements
         };
-        // return achievements;
     }
 
     async loginUser(data) {

@@ -1,22 +1,25 @@
 import { model, Schema } from "mongoose";
-import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from "./achievements.js";
 
 const achievement = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    picture: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
     isReceived: {
         type: Boolean,
         default: false
     },
-    dateAffiliation: {
-        type: String,
-        enum: Object.values(ACHIEVEMENTS_TIME_AFFILIATION)
-    },
     date: {
         type: Date,
         index: true
-    },
-    regionalAffiliation: {
-        type: String,
-        enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION)
     }
 });
 

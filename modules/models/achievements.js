@@ -1,13 +1,13 @@
 export const ACHIEVEMENTS_REGIONAL_AFFILIATION = {
-    ALL: "all",
-    COUNTRY: "country",
-    CITY: "city"
+    ALL: "",
+    AREA: " в регионе",
+    CITY: " в городе"
 };
 
 export const ACHIEVEMENTS_TIME_AFFILIATION = {
-    DAY: "1d",
-    WEEK: "1w",
-    MONTH: "1m",
-    SEMI_ANNUAL: "6m",
-    YEAR: "1y"
+    DAY: "день",
+    WEEK: "неделю",
+    MONTH: "месяц",
+    SEMI_ANNUAL: "пол года",
+    YEAR: "год"
 };
