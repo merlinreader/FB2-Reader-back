@@ -5,16 +5,6 @@ import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from
 import User from "../models/user.js";
 
 class UserService {
-    #createTempKey() {
-        const chars = "abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789";
-        let key = "";
-        for (let step = 0; step < 16; step++) {
-            const pos = Math.floor(Math.random() * chars.length);
-            key += chars.substring(pos, pos + 1);
-        }
-        return key;
-    }
-
     #createAchievements() {
         const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) =>
             Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date) => ({
