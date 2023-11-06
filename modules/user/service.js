@@ -24,7 +24,6 @@ class UserService {
             wordModeAchievements: nonReceivedAchievements,
             baseModeAchievements: nonReceivedAchievements
         };
-        // return achievements;
     }
 
     async loginUser(data) {
