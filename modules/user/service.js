@@ -5,6 +5,16 @@ import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from
 import User from "../models/user.js";
 
 class UserService {
+    #createTempKey() {
+        const chars = "abdehkmnpswxzABDEFGHKMNPQRSTWXZ123456789";
+        let key = "";
+        for (let step = 0; step < 16; step++) {
+            const pos = Math.floor(Math.random() * chars.length);
+            key += chars.substring(pos, pos + 1);
+        }
+        return key;
+    }
+
     #createAchievements() {
         const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) =>
             Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date) => ({
@@ -28,11 +38,10 @@ class UserService {
     }
 
     async loginUser(data) {
-        const userFound = await User.exists({ telegramId: data.telegramId });
+        const userFound = await User.findOne({ telegramId: data.telegramId });
         if (userFound) {
             return {
-                token: await TokenGuard.generate(_.pick(userFound, "_id", "telegramId")),
-                _id: userFound._id
+                token: await TokenGuard.generate(_.pick(userFound, "_id", "telegramId"))
             };
         }
         const userId = new Types.ObjectId();
@@ -42,8 +51,7 @@ class UserService {
             ...data
         }).save();
         return {
-            token: await TokenGuard.generate({ _id: userId, telegramId: data.telegramId }),
-            _id: userId
+            token: await TokenGuard.generate({ _id: userId, telegramId: data.telegramId })
         };
     }
 
@@ -57,6 +65,10 @@ class UserService {
 
     async getSelfData(_id) {
         return await User.findById(_id).select("-achievements -words");
+        // const user = await User.findById(_id);
+        // user.tempKey = null;
+        // user.save();
+        // return _.omit(user, "achievements", "words");
     }
 
     async getAchievements(_id) {
