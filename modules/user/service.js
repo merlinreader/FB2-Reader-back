@@ -13,7 +13,7 @@ class UserService {
             counter += 1;
             return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
                 name: `${picturesNames[index]}${counter}`,
-                picture: `./data/achievements/${picturesNames[index]}${counter}.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[index]}${counter}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: date,
@@ -25,7 +25,7 @@ class UserService {
             counter += 1;
             return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
                 name: `${picturesNames[index]}${counter + 3}`,
-                picture: `./data/achievements/${picturesNames[index]}${counter + 3}.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[index]}${counter + 3}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: date,
@@ -35,15 +35,15 @@ class UserService {
         return {
             baby: {
                 name: "baby",
-                picture: "url",
+                picture: `${process.env.APP_DOMAIN}/achievements/baby.svg`,
                 description: "Первый вход в игру",
                 isReceived: true,
                 date: Date.now()
             },
             spell: {
                 name: "spell",
+                picture: `${process.env.APP_DOMAIN}/achievements/spell.svg`,
                 description: "7 дней с нами",
-                picture: "spell",
                 isReceived: false
             },
             wordModeAchievements: nonReceivedAchievementsBasicMode,
