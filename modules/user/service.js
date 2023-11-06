@@ -4,18 +4,33 @@ import { TokenGuard } from "../common/middleware/token-guard.js";
 import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from "../models/achievements.js";
 import User from "../models/user.js";
 
+const picturesNames = ["rune", "blood", "stick", "dragon", "princess"];
+
 class UserService {
     #createAchievements() {
         let counter = 0;
-        const nonReceivedAchievements = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
-            Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date) => ({
-                name: `${name}${counter}`,
+        const nonReceivedAchievementsBasicMode = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
+            counter += 1;
+            return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
+                name: `${picturesNames[index]}${counter}`,
+                picture: `./data/achievements/${picturesNames[index]}${counter}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: date,
                 regionalAffiliation: regional
             }));
+        });
+        counter = 0;
+        const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
             counter += 1;
+            return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
+                name: `${picturesNames[index]}${counter + 3}`,
+                picture: `./data/achievements/${picturesNames[index]}${counter + 3}.svg`,
+                description: `1 место за ${date}${regional}`,
+                isReceived: false,
+                dateAffiliation: date,
+                regionalAffiliation: regional
+            }));
         });
         return {
             baby: {
@@ -31,8 +46,8 @@ class UserService {
                 picture: "spell",
                 isReceived: false
             },
-            wordModeAchievements: nonReceivedAchievements,
-            baseModeAchievements: nonReceivedAchievements
+            wordModeAchievements: nonReceivedAchievementsBasicMode,
+            baseModeAchievements: nonReceivedAchievementsWordMode
         };
     }
 

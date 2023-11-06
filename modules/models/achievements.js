@@ -1,7 +1,7 @@
 export const ACHIEVEMENTS_REGIONAL_AFFILIATION = {
-    ALL: "",
+    CITY: " в городе",
     AREA: " в регионе",
-    CITY: " в городе"
+    ALL: ""
 };
 
 export const ACHIEVEMENTS_TIME_AFFILIATION = {
