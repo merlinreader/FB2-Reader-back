@@ -25,6 +25,7 @@ class Server {
         this.app = express();
         this.app.use(express.json());
         this.app.use(cors({ origin: true, credentials: true }));
+        this.app.use(express.static("data"));
     }
 }
 

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon -r dotenv/config .",
-    "start:lt": "lt --port 5000"
+    "start:ngrok": "ngrok http 5000"
   },
   "dependencies": {
     "argon2": "^0.30.3",
