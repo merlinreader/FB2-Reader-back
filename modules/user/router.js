@@ -8,17 +8,6 @@ import { nameEditDto } from "./dto/name-edit-dto.js";
 
 const router = new Router();
 
-router.get("/widget", (req, res) => {
-    res.send(`
-  <!DOCTYPE html>
-  <html>
-  <body>
-  <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="merlin_auth_bot" data-size="large" data-auth-url="https://fb2.cloud.leam.pro/api/account/login" data-request-access="write"></script>
-  </body>
-  <html>
-  `);
-});
-
 router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);

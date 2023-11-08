@@ -6,21 +6,6 @@ import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_TIME_AFFLICTION } from "
 import { ACHIEVEMENTS_MODE, TOTAL_PAGES } from "../models/reader_mods.js";
 import User from "../models/user.js";
 
-// const result = {
-//     countryMaxPages: {
-//         moscow: [{
-//             id: 123,
-//             meening: 123
-//         }],
-//         yurga: [{
-//             id: 123,
-//             meening: 123
-//         }]
-//     },
-//     areaMaxPages: {},
-//     cityMaxPages: {}
-// };
-
 class JobsWithAchievements {
     constructor() {
         autoBind(this);
