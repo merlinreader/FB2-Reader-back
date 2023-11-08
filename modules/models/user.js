@@ -1,22 +1,34 @@
 import { model, Schema } from "mongoose";
-import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from "./achievements.js";
+import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_TIME_AFFLICTION } from "./achievements.js";
 
 const achievement = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    picture: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
     isReceived: {
         type: Boolean,
         default: false
-    },
-    dateAffiliation: {
-        type: String,
-        enum: Object.values(ACHIEVEMENTS_TIME_AFFILIATION)
     },
     date: {
         type: Date,
         index: true
     },
+    dateAffiliation: {
+        type: String,
+        enum: Object.values(ACHIEVEMENTS_TIME_AFFLICTION)
+    },
     regionalAffiliation: {
         type: String,
-        enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION)
+        enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION)
     }
 });
 
@@ -41,10 +53,6 @@ const userSchema = new Schema({
     city: {
         type: String
     },
-    wordsCounter: {
-        type: Number,
-        default: 10
-    },
     words: {
         type: [String],
         default: []
@@ -63,7 +71,7 @@ const userSchema = new Schema({
         wordModeAchievements: {
             type: [achievement]
         },
-        baseModeAchievements: {
+        simpleModeAchievements: {
             type: [achievement]
         }
     }

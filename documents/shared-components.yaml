@@ -26,15 +26,34 @@ definitions:
   achievement:
     type: object
     properties:
+      name: 
+        type: string
+        example: rune1
+      picture:
+        type: string
+        example: http://localhost:5000/achievements/rune1.svg
+      description:
+        type: string
+        example: 1 место за день в городе
       isReceived:
         type: boolean
         example: true
       dateAffiliation:
         type: string
+        enum:
+          - 1d
+          - 7d
+          - 1m
+          - 6m
+          - 1y
         example: 1d
       regionalAffiliation:
         type: string
-        example: all
+        enum:
+          - CITY
+          - AREA
+          - ALL
+        example: ALL
       _id:
         type: string
         example: 6539000a7809f92285a59cba

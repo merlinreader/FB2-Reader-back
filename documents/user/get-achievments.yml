@@ -33,11 +33,11 @@
                     _id:
                       type: string
                       example: 6539000a7809f92285a59cba
-                wordModeAchievements:
+                simpleModeAchievements:
                   type: array
                   items:
                     $ref: '#definitions/achievement' 
-                baseModeAchievements:
+                wordModeAchievements:
                   type: array
                   items:
                     $ref: '#definitions/achievement' 
