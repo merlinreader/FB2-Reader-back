@@ -55,9 +55,8 @@ class UserController {
 
     async putWords(req, res) {
         try {
-            const [status, result] = await this.#userService.putWords(req.user._id, req.body.words);
-            if (status) return res.status(200).json({ userWords: result });
-            res.status(403).json({ message: `У вас осталось ${result} свободных слов` });
+            const result = await this.#userService.putWords(req.user._id, req.body.words);
+            res.status(200).json({ userWords: result });
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
         }

@@ -1,35 +1,37 @@
 import _ from "lodash";
 import { Types } from "mongoose";
 import { TokenGuard } from "../common/middleware/token-guard.js";
-import { ACHIEVEMENTS_REGIONAL_AFFILIATION, ACHIEVEMENTS_TIME_AFFILIATION } from "../models/achievements.js";
+import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_REGIONAL_TEXT, ACHIEVEMENTS_TIME_AFFLICTION, ACHIEVEMENTS_TIME_TEXT } from "../models/achievements.js";
 import User from "../models/user.js";
 
 const picturesNames = ["rune", "blood", "stick", "dragon", "princess"];
+const datesNames = Object.values(ACHIEVEMENTS_TIME_AFFLICTION);
+const regionalNames = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
 
 class UserService {
     #createAchievements() {
         let counter = 0;
-        const nonReceivedAchievementsBasicMode = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
+        const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             counter += 1;
-            return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
-                name: `${picturesNames[index]}${counter}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[index]}${counter}.svg`,
+            return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
+                name: `${picturesNames[dateIndex]}${counter}`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${counter}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
-                dateAffiliation: date,
-                regionalAffiliation: regional
+                dateAffiliation: datesNames[dateIndex],
+                regionalAffiliation: regionalNames[regionalIndex]
             }));
         });
         counter = 0;
-        const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_AFFILIATION).flatMap((regional) => {
+        const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             counter += 1;
-            return Object.values(ACHIEVEMENTS_TIME_AFFILIATION).map((date, index) => ({
-                name: `${picturesNames[index]}${counter + 3}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[index]}${counter + 3}.svg`,
+            return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
+                name: `${picturesNames[dateIndex]}${counter + 3}`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${counter + 3}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
-                dateAffiliation: date,
-                regionalAffiliation: regional
+                dateAffiliation: datesNames[dateIndex],
+                regionalAffiliation: regionalNames[regionalIndex]
             }));
         });
         return {
@@ -46,8 +48,8 @@ class UserService {
                 description: "7 дней с нами",
                 isReceived: false
             },
-            wordModeAchievements: nonReceivedAchievementsBasicMode,
-            baseModeAchievements: nonReceivedAchievementsWordMode
+            wordModeAchievements: nonReceivedAchievementsSimpleMode,
+            simpleModeAchievements: nonReceivedAchievementsWordMode
         };
     }
 
@@ -89,10 +91,9 @@ class UserService {
 
     async putWords(_id, words) {
         const user = await User.findById(_id);
-        if (words.length > user.wordsCounter - user.words.length) return [false, user.wordsCounter - user.words.length];
         user.words = Array.from(new Set([...user.words, ...words]));
         user.save();
-        return [true, user.words];
+        return user.words;
     }
 
     async getWords(_id) {
