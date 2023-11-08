@@ -1,4 +1,5 @@
 import { model, Schema } from "mongoose";
+import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_TIME_AFFLICTION } from "./achievements.js";
 
 const achievement = new Schema({
     name: {
@@ -20,6 +21,14 @@ const achievement = new Schema({
     date: {
         type: Date,
         index: true
+    },
+    dateAffiliation: {
+        type: String,
+        enum: Object.values(ACHIEVEMENTS_TIME_AFFLICTION)
+    },
+    regionalAffiliation: {
+        type: String,
+        enum: Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION)
     }
 });
 
@@ -44,10 +53,6 @@ const userSchema = new Schema({
     city: {
         type: String
     },
-    wordsCounter: {
-        type: Number,
-        default: 10
-    },
     words: {
         type: [String],
         default: []
@@ -66,7 +71,7 @@ const userSchema = new Schema({
         wordModeAchievements: {
             type: [achievement]
         },
-        baseModeAchievements: {
+        simpleModeAchievements: {
             type: [achievement]
         }
     }

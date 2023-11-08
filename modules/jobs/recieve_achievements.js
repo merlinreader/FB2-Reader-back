@@ -1,3 +1,5 @@
+import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_TIME_AFFLICTION } from "../models/achievements.js";
+import { ACHIEVEMENTS_MODE, TOTAL_PAGES } from "../models/reader_mods.js";
 import User from "../models/user.js";
 
 export default class JobsWithAchievements {
@@ -20,11 +22,11 @@ export default class JobsWithAchievements {
         return { startDate, endDate };
     }
 
-    static async #putAchievements(entriesForAwards, achievementMode, period) {
-        entriesForAwards.maxPageObjects.forEach(async (statistics) => {
+    static async #putAchievements(statisticsForAwards, achievementMode, period, location) {
+        statisticsForAwards.maxPageObjects.forEach(async (statistics) => {
             const user = await User.findById(statistics._id);
             const userAchievementIndex = user.achievements[achievementMode].findIndex(
-                (achievement) => achievement.dateAffiliation == period && achievement.regionalAffiliation == "all"
+                (achievement) => achievement.dateAffiliation == period && achievement.regionalAffiliation == location
             );
             if (!user.achievements[achievementMode][userAchievementIndex].isReceived) {
                 user.achievements[achievementMode][userAchievementIndex].isReceived = true;
@@ -40,10 +42,15 @@ export default class JobsWithAchievements {
         // const startDate = new Date(endDate);
         // startDate.setDate(endDate.getDate() - 1);
         // const aggregatedStatistics = await aggregateUserStatistic(startDate, endDate);
-        // const topsOfStatisticsSimpleMod = await this.getTopOfStatistics(aggregatedStatistics, "totalPageCountSimpleMode");
-        // const topsOfStatisticsWordMod = await this.getTopOfStatistics(aggregatedStatistics, "totalPageCountWordMode");
-        const topsOfStatisticsSimpleMod = await this.getTopOfStatistics(stats, "totalPageCountSimpleMode");
-        await this.#putAchievements(topsOfStatisticsSimpleMod, "baseModeAchievements", "1d");
+        // const topsOfStatisticsSimpleMod = await this.getTopOfStatistics(aggregatedStatistics, TOTAL_PAGES.SIMPLE_MODE);
+        // const topsOfStatisticsWordMod = await this.getTopOfStatistics(aggregatedStatistics, TOTAL_PAGES.WORD_MODE);
+        const topsOfStatisticsSimpleMod = await this.getTopOfStatistics(stats, TOTAL_PAGES.SIMPLE_MODE);
+        await this.#putAchievements(
+            topsOfStatisticsSimpleMod,
+            ACHIEVEMENTS_MODE.SIMPLE_MODE,
+            ACHIEVEMENTS_TIME_AFFLICTION.DAY,
+            ACHIEVEMENTS_REGIONAL_AFFLICTION.ALL
+        );
     }
 
     static async getTopOfStatistics(aggregatedStatistics, sortBy) {
