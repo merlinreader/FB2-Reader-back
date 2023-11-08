@@ -10,24 +10,20 @@ const regionalNames = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
 
 class UserService {
     #createAchievements() {
-        let counter = 0;
         const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
-            counter += 1;
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
-                name: `${picturesNames[dateIndex]}${counter}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${counter}.svg`,
+                name: `${picturesNames[dateIndex]}${regionalIndex+1}`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex+1}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
                 regionalAffiliation: regionalNames[regionalIndex]
             }));
         });
-        counter = 0;
         const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
-            counter += 1;
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
-                name: `${picturesNames[dateIndex]}${counter + 3}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${counter + 3}.svg`,
+                name: `${picturesNames[dateIndex]}${regionalIndex + 4}`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 4}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
