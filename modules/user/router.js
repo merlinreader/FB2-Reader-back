@@ -19,6 +19,13 @@ router.get("/widget", (req, res) => {
   `);
 });
 
+router.get("/loginEXP", (req, res) => {
+    res.status(200);
+});
+router.post("/loginEXP", (req, res) => {
+    console.log(req.body.message.chat);
+    res.status(200).json({ message: "Success, yo-hooo", data: req.body.message.chat });
+});
 router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);

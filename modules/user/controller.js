@@ -11,8 +11,8 @@ class UserController {
 
     async login(req, res) {
         try {
-            const token = await this.#userService.loginUser(req.body);
-            res.status(200).json(token);
+            const result = await this.#userService.loginUser(req.body);
+            res.status(200).json(result);
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
         }
@@ -21,7 +21,7 @@ class UserController {
     async editGeo(req, res) {
         try {
             await this.#userService.editGeo(req.user._id, req.body);
-            res.status(200).json({ message: "Success" });
+            res.status(200).end();
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
         }
@@ -30,7 +30,7 @@ class UserController {
     async editName(req, res) {
         try {
             await this.#userService.editName(req.user._id, req.body);
-            res.status(200).json({ message: "Success" });
+            res.status(200).end();
         } catch (error) {
             res.status(500).json({ message: "Something went wrong" });
         }
