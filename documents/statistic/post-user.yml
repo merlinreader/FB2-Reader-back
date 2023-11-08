@@ -2,7 +2,6 @@
   post:
     tags:
       - Statistic
-    security: [ ]
     summary: Push user statistic
     requestBody:
       required: true

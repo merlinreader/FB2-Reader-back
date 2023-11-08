@@ -33,5 +33,37 @@
     responses:
       "200":
         description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: 6536363078887dbb85e47d49
+                  totalPageCountSimpleMode:
+                    type: number
+                    example: 130
+                  totalPageCountWordMode:
+                    type: number
+                    example: 130
+                  telegramId:
+                    type: number
+                    example: 78634768234678
+                  firstName:
+                    type: string
+                    example: NonMerlin
+                  country:
+                    type: string
+                    example: Russia
+                  area:
+                    type: string
+                    example: Tomskaya oblast
+                  city:
+                    type: string
+                    example: Tomsk
+
       "500":
         $ref: '#definitions/error'

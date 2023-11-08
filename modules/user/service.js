@@ -50,11 +50,10 @@ class UserService {
     }
 
     async loginUser(data) {
-        const userFound = await User.exists({ telegramId: data.telegramId });
+        const userFound = await User.findOne({ telegramId: data.telegramId });
         if (userFound) {
             return {
-                token: await TokenGuard.generate(_.pick(userFound, "_id", "telegramId")),
-                _id: userFound._id
+                token: await TokenGuard.generate(_.pick(userFound, "_id", "telegramId"))
             };
         }
         const userId = new Types.ObjectId();
@@ -64,8 +63,7 @@ class UserService {
             ...data
         }).save();
         return {
-            token: await TokenGuard.generate({ _id: userId, telegramId: data.telegramId }),
-            _id: userId
+            token: await TokenGuard.generate({ _id: userId, telegramId: data.telegramId })
         };
     }
 
@@ -79,6 +77,10 @@ class UserService {
 
     async getSelfData(_id) {
         return await User.findById(_id).select("-achievements -words");
+        // const user = await User.findById(_id);
+        // user.tempKey = null;
+        // user.save();
+        // return _.omit(user, "achievements", "words");
     }
 
     async getAchievements(_id) {
