@@ -1,9 +1,9 @@
-// import Scheduler from "./core/cron.js";
+import Scheduler from "./core/cron.js";
 import MongoAdapter from "./core/database/mongo-adapter.js";
 import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
-// import Tasks from "./modules/jobs/_index.js";
+import Tasks from "./modules/jobs/_index.js";
 import StatisticRouter from "./modules/statistic/router.js";
 import UserRouter from "./modules/user/router.js";
 
@@ -22,7 +22,7 @@ new Server(APP_PORT, [
         { prefix: "/statistic", router: StatisticRouter },
         { prefix: "/account", router: UserRouter }
     ]),
-    // new Scheduler(Tasks),
+    new Scheduler(Tasks),
     new SwaggerDoc(
         {
             definition: {
