@@ -77,10 +77,6 @@ class UserService {
 
     async getSelfData(_id) {
         return await User.findById(_id).select("-achievements -words");
-        // const user = await User.findById(_id);
-        // user.tempKey = null;
-        // user.save();
-        // return _.omit(user, "achievements", "words");
     }
 
     async getAchievements(_id) {

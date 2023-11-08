@@ -3,7 +3,7 @@
 import autoBind from "auto-bind";
 import { aggregateUserStatistic } from "../common/functions/get-statistic-by-time.js";
 import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_TIME_AFFLICTION } from "../models/achievements.js";
-import { ACHIEVEMENTS_MODE, TOTAL_PAGES } from "../models/reader_mods.js";
+import { ACHIEVEMENTS_MODE, TOTAL_PAGES } from "../models/reader-mods.js";
 import User from "../models/user.js";
 
 class JobsWithAchievements {

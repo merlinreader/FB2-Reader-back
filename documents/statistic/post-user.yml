@@ -9,9 +9,12 @@
         application/json:
           schema:
             type: object
-            required: [ pageCountSimpleMode ]
+            required: [ pageCountSimpleMode, pageCountWordMode ]
             properties:
               pageCountSimpleMode:
+                type: integer
+                example: 2353
+              pageCountWordMode:
                 type: integer
                 example: 2353
   
