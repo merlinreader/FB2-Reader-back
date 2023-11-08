@@ -12,8 +12,8 @@ class UserService {
     #createAchievements() {
         const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
-                name: `${picturesNames[dateIndex]}${regionalIndex+1}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex+1}.svg`,
+                name: `${picturesNames[dateIndex]}${regionalIndex + 1}`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 1}.svg`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
