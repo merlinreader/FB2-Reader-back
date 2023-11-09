@@ -1,0 +1,19 @@
+/account/words:
+  get:
+    tags:
+      - User
+    summary: Get count of learned words
+
+    response:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+            properties:
+              _id:
+                type: string,
+                example: 6536363078887dbb85e47d49
+              wordsCounter:
+                type: integer
+                example: 20

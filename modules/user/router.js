@@ -15,5 +15,6 @@ router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserCo
 router.get("/achievements", TokenGuard.verify, UserController.getAchievements);
 router.get("/avatars", TokenGuard.verify, UserController.getAccountAvatars);
 router.patch("/words", TokenGuard.verify, UserController.patchWords);
+router.get("/words", TokenGuard.verify, UserController.getWordsCount);
 
 export default router;

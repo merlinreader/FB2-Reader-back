@@ -71,7 +71,7 @@ class UserController {
         }
     }
 
-    async getWords(req, res) {
+    async getWordsCount(req, res) {
         try {
             res.status(200).json(await this.#userService.getWords(req.user._id));
         } catch (error) {
