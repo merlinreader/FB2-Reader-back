@@ -98,7 +98,7 @@ class UserService {
     }
 
     async getWords(_id) {
-        return await User.findById(_id).select("_id wordsCounter");
+        await User.findById(_id).select("_id wordsCounter");
     }
 }
 
