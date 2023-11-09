@@ -93,11 +93,8 @@ class UserService {
         return avatars;
     }
 
-    async putWords(_id, words) {
-        const user = await User.findById(_id);
-        user.words = Array.from(new Set([...user.words, ...words]));
-        user.save();
-        return user.words;
+    async patchWords(_id) {
+        await User.findByIdAndUpdate(_id, { $inc: { wordsCounter: 10 } });
     }
 
     async getWords(_id) {

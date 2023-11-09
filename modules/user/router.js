@@ -14,7 +14,6 @@ router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserContr
 router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
 router.get("/achievements", TokenGuard.verify, UserController.getAchievements);
 router.get("/avatars", TokenGuard.verify, UserController.getAccountAvatars);
-router.put("/words", TokenGuard.verify, UserController.putWords);
-router.get("/words", TokenGuard.verify, UserController.getWords);
+router.patch("/words", TokenGuard.verify, UserController.patchWords);
 
 export default router;

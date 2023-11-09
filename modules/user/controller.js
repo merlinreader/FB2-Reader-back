@@ -62,10 +62,10 @@ class UserController {
         }
     }
 
-    async putWords(req, res) {
+    async patchWords(req, res) {
         try {
-            const result = await this.#userService.putWords(req.user._id, req.body.words);
-            res.status(200).json({ userWords: result });
+            await this.#userService.patchWords(req.user._id);
+            res.status(200).end();
         } catch (error) {
             res.status(500).json({ message: SERVER_500_ERROR });
         }

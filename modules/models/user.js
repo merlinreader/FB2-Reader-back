@@ -53,9 +53,9 @@ const userSchema = new Schema({
     city: {
         type: String
     },
-    words: {
-        type: [String],
-        default: []
+    wordsCounter: {
+        type: Number,
+        default: 0
     },
     daysCounter: {
         type: Number,
