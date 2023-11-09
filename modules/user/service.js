@@ -89,9 +89,7 @@ class UserService {
         const avatars = [];
         Object.values(user.achievements)
             .flat()
-            .forEach((achievement) => {
-                if (achievement.isReceived) avatars.push(_.pick(achievement, "_id", "name", "picture"));
-            });
+            .forEach((achievement) => achievement.isReceived && avatars.push(_.pick(achievement, "_id", "name", "picture")));
         return avatars;
     }
 
