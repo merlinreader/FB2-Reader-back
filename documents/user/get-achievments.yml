@@ -15,6 +15,15 @@
                 baby:
                   type: object
                   properties:
+                    name: 
+                      type: string
+                      example: baby1
+                    picture:
+                      type: string
+                      example: http://localhost:5000/achievements/baby1.png
+                    description:
+                      type: string
+                      example: Первый вход в игру
                     isReceived:
                       type: boolean
                       example: true
@@ -27,6 +36,15 @@
                 spell:
                   type: object
                   properties:
+                    name: 
+                      type: string
+                      example: spell1
+                    picture:
+                      type: string
+                      example: http://localhost:5000/achievements/spell1.png
+                    description:
+                      type: string
+                      example: 7 дней с нами
                     isReceived:
                       type: boolean
                       example: true
