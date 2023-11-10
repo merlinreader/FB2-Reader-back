@@ -1,4 +1,5 @@
 import autoBind from "auto-bind";
+import { SERVER_500_ERROR } from "../common/vars/messages.js";
 import StatisticService from "./service.js";
 
 class StatisticController {
@@ -14,7 +15,7 @@ class StatisticController {
             await this.#StatisticService.saveAnonymStatistic(req.body);
             res.status(201).json();
         } catch (error) {
-            res.status(500).json({ message: "Oops, something went wrong!!!" });
+            res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
 
@@ -23,7 +24,7 @@ class StatisticController {
             await this.#StatisticService.saveUserStatistic(req.user._id, req.body);
             res.status(201).json();
         } catch (error) {
-            res.status(500).json({ message: "Oops, something went wrong!!!" });
+            res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
 
@@ -32,7 +33,7 @@ class StatisticController {
             const statistics = await this.#StatisticService.getStatistic(req.query, req.params.period);
             res.status(200).json(statistics);
         } catch (error) {
-            res.status(500).json({ message: "Oops, something went wrong!!!" });
+            res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
 }

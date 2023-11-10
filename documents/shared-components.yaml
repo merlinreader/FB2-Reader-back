@@ -31,7 +31,7 @@ definitions:
         example: rune1
       picture:
         type: string
-        example: http://localhost:5000/achievements/rune1.svg
+        example: http://localhost:5000/achievements/rune1.png
       description:
         type: string
         example: 1 место за день в городе

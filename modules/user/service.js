@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 import _ from "lodash";
 import { Types } from "mongoose";
 import { TokenGuard } from "../common/middleware/token-guard.js";
@@ -13,7 +14,7 @@ class UserService {
         const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
                 name: `${picturesNames[dateIndex]}${regionalIndex + 1}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 1}.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 1}.png`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
@@ -23,7 +24,7 @@ class UserService {
         const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
                 name: `${picturesNames[dateIndex]}${regionalIndex + 4}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 4}.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 4}.png`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
@@ -33,14 +34,14 @@ class UserService {
         return {
             baby: {
                 name: "baby",
-                picture: `${process.env.APP_DOMAIN}/achievements/baby.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/baby.png`,
                 description: "Первый вход в игру",
                 isReceived: true,
                 date: Date.now()
             },
             spell: {
                 name: "spell",
-                picture: `${process.env.APP_DOMAIN}/achievements/spell.svg`,
+                picture: `${process.env.APP_DOMAIN}/achievements/spell.png`,
                 description: "7 дней с нами",
                 isReceived: false
             },
@@ -77,25 +78,27 @@ class UserService {
 
     async getSelfData(_id) {
         return await User.findById(_id).select("-achievements -words");
-        // const user = await User.findById(_id);
-        // user.tempKey = null;
-        // user.save();
-        // return _.omit(user, "achievements", "words");
     }
 
     async getAchievements(_id) {
         return await User.findById(_id).select("_id achievements");
     }
 
-    async putWords(_id, words) {
+    async getAccountAvatars(_id) {
         const user = await User.findById(_id);
-        user.words = Array.from(new Set([...user.words, ...words]));
-        user.save();
-        return user.words;
+        const avatars = [];
+        Object.values(user.achievements)
+            .flat()
+            .forEach((achievement) => achievement.isReceived && avatars.push(_.pick(achievement, "_id", "name", "picture")));
+        return avatars;
+    }
+
+    async patchWords(_id) {
+        await User.findByIdAndUpdate(_id, { $inc: { wordsCounter: 10 } });
     }
 
     async getWords(_id) {
-        return await User.findById(_id).select("_id words");
+        await User.findById(_id).select("_id wordsCounter");
     }
 }
 

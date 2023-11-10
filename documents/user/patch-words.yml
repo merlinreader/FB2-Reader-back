@@ -1,0 +1,12 @@
+/statistic/words:
+  patch:
+    tags:
+      - User
+    summary: User's words + 10
+  
+    responses:
+      "200":
+        description: OK
+
+      "500":
+        $ref: '#definitions/error'

@@ -6,7 +6,7 @@ const SORT_FIELDS = {
     WORD_MODE: "totalPageCountWordMode"
 };
 
-const PERIOD = {
+export const PERIOD = {
     ANNUAL: "annual",
     SEMI_ANNUAL: "semi-annual",
     MONTHLY: "monthly",

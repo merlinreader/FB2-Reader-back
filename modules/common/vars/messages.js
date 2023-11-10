@@ -1,0 +1,1 @@
+export const SERVER_500_ERROR = "Oops, something went wrong!!!";

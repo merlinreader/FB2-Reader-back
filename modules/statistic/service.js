@@ -1,8 +1,11 @@
+/* eslint-disable indent */
+/* eslint-disable default-case */
 import { Types } from "mongoose";
 import { aggregateAnonymStatistic, aggregateUserStatistic } from "../common/functions/get-statistic-by-time.js";
 import AnonymStatistic from "../models/anonym-statistic.js";
 import UserStatistic from "../models/user-statistic.js";
 import User from "../models/user.js";
+import { PERIOD } from "./dto/get-statistic-dto.js";
 
 class StatisticService {
     async #getPeriod(period) {
@@ -10,16 +13,22 @@ class StatisticService {
         endDate.setDate(endDate.getDate() - 1);
         endDate.setHours(23, 59, 59, 999);
         const startDate = new Date(endDate);
-        if (period == "annual") {
-            startDate.setFullYear(endDate.getFullYear() - 1);
-        } else if (period == "semi-annual") {
-            startDate.setMonth(endDate.getMonth() - 6);
-        } else if (period == "monthly") {
-            startDate.setMonth(endDate.getMonth() - 1);
-        } else if (period == "weekly") {
-            startDate.setDate(endDate.getDate() - 7);
-        } else if (period == "daily") {
-            startDate.setDate(endDate.getDate() - 1);
+        switch (period) {
+            case PERIOD.ANNUAL:
+                startDate.setFullYear(endDate.getFullYear() - 1);
+                break;
+            case PERIOD.SEMI_ANNUAL:
+                startDate.setMonth(endDate.getMonth() - 6);
+                break;
+            case PERIOD.MONTHLY:
+                startDate.setMonth(endDate.getMonth() - 1);
+                break;
+            case PERIOD.WEEKLY:
+                startDate.setDate(endDate.getDate() - 7);
+                break;
+            case PERIOD.DAILY:
+                startDate.setDate(endDate.getDate() - 1);
+                break;
         }
         return { startDate, endDate };
     }
