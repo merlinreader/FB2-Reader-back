@@ -6,5 +6,6 @@ export const anonymStatisticDto = yup.object().shape({
     area: yup.string().required(),
     city: yup.string().required(),
     pageCountSimpleMode: yup.number().min(0).required(),
-    pageCountWordMode: yup.number().min(0).required()
+    pageCountWordMode: yup.number().min(0).required(),
+    date: yup.date().required()
 });
