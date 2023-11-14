@@ -57,6 +57,9 @@ definitions:
       _id:
         type: string
         example: 6539000a7809f92285a59cba
+      date:
+        type: string
+        format: date-time
 
   bad-request:
     description: Bad request
