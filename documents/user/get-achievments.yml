@@ -29,7 +29,7 @@
                       example: true
                     date:
                       type: date
-                      example: '2023-10-25T11:46:18.437+00:00'
+                      format: date-time
                     _id:
                       type: string
                       example: 6539000a7809f92285a59cba
