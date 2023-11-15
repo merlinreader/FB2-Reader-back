@@ -15,6 +15,7 @@ class StatisticController {
             await this.#StatisticService.saveAnonymStatistic(req.body);
             res.status(201).json();
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -24,6 +25,7 @@ class StatisticController {
             await this.#StatisticService.saveUserStatistic(req.user._id, req.body);
             res.status(201).json();
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -33,6 +35,7 @@ class StatisticController {
             const statistics = await this.#StatisticService.getStatistic(req.query, req.params.period);
             res.status(200).json(statistics);
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
