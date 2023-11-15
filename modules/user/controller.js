@@ -25,6 +25,7 @@ class UserController {
             await this.#userService.editGeo(req.user._id, req.body);
             res.status(200).end();
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -34,6 +35,7 @@ class UserController {
             await this.#userService.editName(req.user._id, req.body);
             res.status(200).end();
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -42,6 +44,7 @@ class UserController {
         try {
             res.status(200).json(await this.#userService.getSelfData(req.user._id));
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -50,6 +53,7 @@ class UserController {
         try {
             res.status(200).json(await this.#userService.getAchievements(req.user._id));
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -58,6 +62,7 @@ class UserController {
         try {
             res.status(200).json(await this.#userService.getAccountAvatars(req.user._id));
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -67,6 +72,7 @@ class UserController {
             await this.#userService.patchWords(req.user._id);
             res.status(200).end();
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
@@ -75,6 +81,7 @@ class UserController {
         try {
             res.status(200).json(await this.#userService.getWords(req.user._id));
         } catch (error) {
+            console.log(error.message);
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
