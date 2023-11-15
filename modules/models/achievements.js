@@ -1,6 +1,6 @@
 export const ACHIEVEMENTS_REGIONAL_TEXT = {
-    CITY: " в городе",
-    AREA: " в регионе",
+    CITY: " по городу",
+    AREA: " по региону",
     ALL: ""
 };
 
