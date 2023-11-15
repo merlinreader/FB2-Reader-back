@@ -8,6 +8,10 @@ import { nameEditDto } from "./dto/name-edit-dto.js";
 
 const router = new Router();
 
+router.get("/auth", (req, res) => {
+    res.redirect(`merlin://main/profile?token=${req.query.token}`);
+});
+
 router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);
