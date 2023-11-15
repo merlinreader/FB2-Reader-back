@@ -8,7 +8,7 @@ import User from "../models/user.js";
 const picturesNames = ["rune", "blood", "stick", "dragon", "princess"];
 const datesNames = Object.values(ACHIEVEMENTS_TIME_AFFLICTION);
 const regionalNames = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
-const appMode = { SIMPLE: "страницы", WORD: "слова" };
+const appMode = { SIMPLE: "страницы", WORD: "'Слово'" };
 
 class UserService {
     #createAchievements() {
