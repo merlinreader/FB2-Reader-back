@@ -18,6 +18,9 @@
               country:
                 type: string
                 example: "Borat"
+              area:
+                type: string
+                example: "Sydykov"
               city:
                 type: string
                 example: "Sagdiev"
