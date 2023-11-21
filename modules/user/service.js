@@ -85,6 +85,15 @@ class UserService {
         return await User.findById(_id).select("_id achievements");
     }
 
+    async getAccountAvatars(_id) {
+        const user = await User.findById(_id);
+        const avatars = [];
+        Object.values(user.achievements)
+            .flat()
+            .forEach((achievement) => achievement.isReceived && avatars.push(_.pick(achievement, "_id", "name", "picture")));
+        return avatars;
+    }
+
     async patchWords(_id) {
         await User.findByIdAndUpdate(_id, { $inc: { wordsCounter: 10 } });
     }

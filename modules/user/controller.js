@@ -58,6 +58,15 @@ class UserController {
         }
     }
 
+    async getAccountAvatars(req, res) {
+        try {
+            res.status(200).json(await this.#userService.getAccountAvatars(req.user._id));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: SERVER_500_ERROR });
+        }
+    }
+
     async patchWords(req, res) {
         try {
             await this.#userService.patchWords(req.user._id);
