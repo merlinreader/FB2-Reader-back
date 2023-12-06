@@ -5,7 +5,7 @@ import { aggregateAnonymStatistic, aggregateUserStatistic } from "../common/func
 import AnonymStatistic from "../models/anonym-statistic.js";
 import UserStatistic from "../models/user-statistic.js";
 import User from "../models/user.js";
-import { PERIOD } from "./dto/get-statistic-dto.js";
+import { PERIOD, SORT_FIELDS } from "./dto/get-statistic-dto.js";
 
 class StatisticService {
     async #getPeriod(period) {
@@ -50,6 +50,7 @@ class StatisticService {
     }
 
     async getStatistic(data, period) {
+        const [additionalSortKey] = Object.values(SORT_FIELDS).filter((sortKey) => sortKey != data.sortBy);
         const { startDate, endDate } = await this.#getPeriod(period);
         const usersStatistics = await aggregateUserStatistic(startDate, endDate);
         const anonymsStatistics = await aggregateAnonymStatistic(startDate, endDate);
@@ -63,11 +64,11 @@ class StatisticService {
             return true;
         });
         return generalStatistic.sort((a, b) => {
-            if (a[data.sortBy] < b[data.sortBy]) {
-                return 1;
-            }
-            if (a[data.sortBy] > b[data.sortBy]) {
-                return -1;
+            if (a[data.sortBy] < b[data.sortBy]) return 1;
+            if (a[data.sortBy] > b[data.sortBy]) return -1;
+            if (a[data.sortBy] == b[data.sortBy]) {
+                if (a[additionalSortKey] < b[additionalSortKey]) return 1;
+                if (a[additionalSortKey] > b[additionalSortKey]) return -1;
             }
             return 0;
         });
