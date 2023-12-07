@@ -36,6 +36,7 @@
                 country:
                   type: string
                   example: Russia
-
+      "401":
+        $ref: '#definitions/unauthorized'
       "500":
         $ref: '#definitions/error'

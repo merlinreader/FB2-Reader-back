@@ -101,6 +101,12 @@ class UserService {
     async getWords(_id) {
         await User.findById(_id).select("_id wordsCounter");
     }
+
+    async editAvatar(_id, name) {
+        return await User.findByIdAndUpdate(_id, { avatar: { picture: `${process.env.APP_DOMAIN}/achievements/${name}.png`, name } }, { new: true }).select(
+            "_id avatar"
+        );
+    }
 }
 
 export default UserService;

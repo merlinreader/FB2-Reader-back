@@ -1,0 +1,40 @@
+/account/avatar:
+  patch:
+    tags: 
+      - User
+    summary: Edit user avatar
+    description: Edit user avatar. If you wanna reset user avater - send name = default_avatar
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ name ]
+            properties: 
+              name:
+                type: string
+                example: default_avatar | any another avatar
+
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: name
+                    picture:
+                      type: string
+                      example: example.com/achievements/name.png
+                _id:
+                  type: string
+                  example: 6527bae2486e86bda975fcd1
+      "500":
+        $ref: '#definitions/error'

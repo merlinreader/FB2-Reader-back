@@ -24,5 +24,7 @@
     responses:
       "200":
         description: OK
+      "401":
+        $ref: '#definitions/unauthorized'
       "500":
         $ref: '#definitions/error'

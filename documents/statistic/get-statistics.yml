@@ -64,6 +64,5 @@
                   city:
                     type: string
                     example: Tomsk
-
       "500":
         $ref: '#definitions/error'
