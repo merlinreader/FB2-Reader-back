@@ -14,7 +14,7 @@ export const ACHIEVEMENTS_TIME_TEXT = {
     DAY: "день",
     WEEK: "неделю",
     MONTH: "месяц",
-    SEMI_ANNUAL: "пол года",
+    SEMI_ANNUAL: "полгода",
     YEAR: "год"
 };
 

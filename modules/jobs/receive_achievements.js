@@ -12,7 +12,7 @@ class JobsWithAchievements {
     }
 
     async #putAchievements(statisticsForAwards, achievementMode, period) {
-        statisticsForAwards.maxPageObjects.forEach(async (statistics) => {
+        for (const statistics of statisticsForAwards.maxPageObjects) {
             const user = await User.findById(statistics._id);
             const userAchievementIndex = user.achievements[achievementMode].findIndex(
                 (achievement) => achievement.dateAffiliation == period && achievement.regionalAffiliation == ACHIEVEMENTS_REGIONAL_AFFLICTION.ALL
@@ -22,7 +22,7 @@ class JobsWithAchievements {
                 user.achievements[achievementMode][userAchievementIndex].date = new Date();
                 user.save();
             }
-        });
+        }
         delete statisticsForAwards.maxPageObjects;
         delete statisticsForAwards.countryMaxPages;
         const locations = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
@@ -41,6 +41,7 @@ class JobsWithAchievements {
                 );
                 if (!user.achievements[achievementMode][userAchievementIndex].isReceived) {
                     user.achievements[achievementMode][userAchievementIndex].isReceived = true;
+                    user.achievements[achievementMode][userAchievementIndex].date = new Date();
                     user.save();
                 }
             });
