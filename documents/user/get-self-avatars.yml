@@ -23,6 +23,7 @@
                   picture:
                     type: string
                     example: http://localhost:5000/achievements/princess1.png
-
+      "401":
+        $ref: '#definitions/unauthorized'
       "500":
         $ref: '#definitions/error'

@@ -17,3 +17,7 @@
               wordsCounter:
                 type: integer
                 example: 20
+      "401":
+        $ref: '#definitions/unauthorized'
+      "500":
+        $ref: '#definitions/error'
