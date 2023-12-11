@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
-const SORT_FIELDS = {
-    WORDS: "wordsCounter",
+export const SORT_FIELDS = {
+    // WORDS: "wordsCounter",
     SIMPLE_MODE: "totalPageCountSimpleMode",
     WORD_MODE: "totalPageCountWordMode"
 };

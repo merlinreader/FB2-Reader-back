@@ -32,6 +32,17 @@ const achievement = new Schema({
     }
 });
 
+const avatarSchema = {
+    picture: {
+        type: String,
+        default: `${process.env.APP_DOMAIN}/achievements/default_avatar.png`
+    },
+    name: {
+        type: String,
+        default: "default_avatar"
+    }
+};
+
 const userSchema = new Schema({
     telegramId: {
         type: String,
@@ -74,7 +85,8 @@ const userSchema = new Schema({
         simpleModeAchievements: {
             type: [achievement]
         }
-    }
+    },
+    avatar: avatarSchema
 });
 
 export default model("users", userSchema);

@@ -85,6 +85,15 @@ class UserController {
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
+
+    async patchAvatar(req, res) {
+        try {
+            res.status(200).json(await this.#userService.editAvatar(req.user._id, req.body.name));
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: SERVER_500_ERROR });
+        }
+    }
 }
 
 export default new UserController();

@@ -59,6 +59,7 @@
                   type: array
                   items:
                     $ref: '#definitions/achievement' 
-
+      "401":
+        $ref: '#definitions/unauthorized'
       "500":
         $ref: '#definitions/error'
