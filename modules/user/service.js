@@ -15,7 +15,7 @@ class UserService {
         const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
                 name: `${picturesNames[dateIndex]}${regionalIndex + 1}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 1}.png`,
+                picture: `/achievements/${picturesNames[dateIndex]}${regionalIndex + 1}.png`,
                 description: `1 место за ${date}${regional}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
@@ -25,7 +25,7 @@ class UserService {
         const nonReceivedAchievementsWordMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
                 name: `${picturesNames[dateIndex]}${regionalIndex + 4}`,
-                picture: `${process.env.APP_DOMAIN}/achievements/${picturesNames[dateIndex]}${regionalIndex + 4}.png`,
+                picture: `/achievements/${picturesNames[dateIndex]}${regionalIndex + 4}.png`,
                 description: `1 место за ${date}${regional} в режиме ${appMode.WORD}`,
                 isReceived: false,
                 dateAffiliation: datesNames[dateIndex],
@@ -35,14 +35,14 @@ class UserService {
         return {
             baby: {
                 name: "baby",
-                picture: `${process.env.APP_DOMAIN}/achievements/baby.png`,
+                picture: `/achievements/baby.png`,
                 description: "Первый вход в игру",
                 isReceived: true,
                 date: Date.now()
             },
             spell: {
                 name: "spell",
-                picture: `${process.env.APP_DOMAIN}/achievements/spell.png`,
+                picture: `/achievements/spell.png`,
                 description: "7 дней с нами",
                 isReceived: false
             },
@@ -82,7 +82,16 @@ class UserService {
     }
 
     async getAchievements(_id) {
-        return await User.findById(_id).select("_id achievements");
+        const { achievements } = await User.findById(_id).select("achievements");
+        achievements.baby.picture = `${process.env.APP_DOMAIN}${achievements.baby.picture}`;
+        achievements.spell.picture = `${process.env.APP_DOMAIN}${achievements.spell.picture}`;
+        achievements.wordModeAchievements = achievements.wordModeAchievements.map((achievement) => {
+            return { ..._.omit(achievement, "picture"), picture: `${process.env.APP_DOMAIN}${achievement.picture}` };
+        });
+        achievements.simpleModeAchievements = achievements.simpleModeAchievements.map((achievement) => {
+            return { ..._.omit(achievement, "picture"), picture: `${process.env.APP_DOMAIN}${achievement.picture}` };
+        });
+        return achievements;
     }
 
     async getAccountAvatars(_id) {
@@ -91,7 +100,9 @@ class UserService {
         Object.values(user.achievements)
             .flat()
             .forEach((achievement) => achievement.isReceived && avatars.push(_.pick(achievement, "_id", "name", "picture")));
-        return avatars;
+        return avatars.map((achievement) => {
+            return { _id: achievement._id, name: achievement.name, picture: `${process.env.APP_DOMAIN}${achievement.picture}` };
+        });
     }
 
     async patchWords(_id) {
@@ -99,13 +110,12 @@ class UserService {
     }
 
     async getWords(_id) {
-        await User.findById(_id).select("_id wordsCounter");
+        await User.findById(_id).select("wordsCounter");
     }
 
     async editAvatar(_id, name) {
-        return await User.findByIdAndUpdate(_id, { avatar: { picture: `${process.env.APP_DOMAIN}/achievements/${name}.png`, name } }, { new: true }).select(
-            "_id avatar"
-        );
+        const { avatar } = await User.findByIdAndUpdate(_id, { avatar: { picture: `/achievements/${name}.png`, name } }, { new: true }).select("avatar");
+        return { picture: `${process.env.APP_DOMAIN}${avatar.picture}` };
     }
 }
 
