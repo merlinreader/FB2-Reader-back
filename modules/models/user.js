@@ -35,7 +35,7 @@ const achievement = new Schema({
 const avatarSchema = {
     picture: {
         type: String,
-        default: `${process.env.APP_DOMAIN}/achievements/default_avatar.png`
+        default: `/achievements/default_avatar.png`
     },
     name: {
         type: String,
