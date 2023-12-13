@@ -78,7 +78,9 @@ class UserService {
     }
 
     async getSelfData(_id) {
-        return await User.findById(_id).select("-achievements -words");
+        const user = await User.findById(_id).select("-achievements -words");
+        user.avatar.picture = `${process.env.APP_DOMAIN}${user.avatar.picture}`;
+        return user;
     }
 
     async getAchievements(_id) {
