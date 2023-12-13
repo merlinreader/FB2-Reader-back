@@ -18,8 +18,8 @@ router.get("/", TokenGuard.verify, UserController.getSelfData);
 router.patch("/geo", TokenGuard.verify, Validator.validate(geoSetDTO), UserController.editGeo);
 router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
 router.get("/achievements", TokenGuard.verify, UserController.getAchievements);
-router.get("/avatars", TokenGuard.verify, Validator.validate(avatarNameDto), UserController.getAccountAvatars);
-router.patch("/avatar", TokenGuard.verify, UserController.patchAvatar);
+router.get("/avatars", TokenGuard.verify, UserController.getAccountAvatars);
+router.patch("/avatar", TokenGuard.verify, Validator.validate(avatarNameDto), UserController.patchAvatar);
 router.patch("/words", TokenGuard.verify, UserController.patchWords);
 router.get("/words", TokenGuard.verify, UserController.getWordsCount);
 
