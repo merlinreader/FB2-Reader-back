@@ -91,7 +91,7 @@ class UserService {
         achievements.simpleModeAchievements = achievements.simpleModeAchievements.map((achievement) => {
             return { ..._.omit(achievement, "picture"), picture: `${process.env.APP_DOMAIN}${achievement.picture}` };
         });
-        return achievements;
+        return { achievements };
     }
 
     async getAccountAvatars(_id) {
