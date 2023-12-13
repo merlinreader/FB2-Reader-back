@@ -117,7 +117,6 @@ class UserService {
 
     async editAvatar(_id, name) {
         const { avatar } = await User.findByIdAndUpdate(_id, { avatar: { picture: `/achievements/${name}.png`, name } }, { new: true }).select("avatar");
-        console.log(name);
         return { picture: `${process.env.APP_DOMAIN}${avatar.picture}` };
     }
 }
