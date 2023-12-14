@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon -r dotenv/config .",
-    "migrate": "migrate-mongo up"
+    "migrate:up": "migrate-mongo up",
+    "migrate:down": "migrate-mongo down"
   },
   "dependencies": {
     "argon2": "^0.30.3",
