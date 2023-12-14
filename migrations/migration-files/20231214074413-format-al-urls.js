@@ -16,7 +16,7 @@ export const up = async (db, client) => {
                         else: ""
                     }
                 },
-                avatar: { name: "default_avatar", picture: "/achievement/default_avatar.png" }
+                avatar: { name: "default_avatar", picture: "/achievements/default_avatar.png" }
             }
         },
         {
