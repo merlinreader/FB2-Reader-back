@@ -16,13 +16,7 @@ export const up = async (db, client) => {
                         else: ""
                     }
                 },
-                "avatar.picture": {
-                    $cond: {
-                        if: "$avatar.picture",
-                        then: { $replaceOne: { input: "$avatar.picture", find: "https://fb2.cloud.leam.pro/api", replacement: "" } },
-                        else: ""
-                    }
-                }
+                avatar: { name: "default_avatar", picture: "/achievement/default_avatar.png" }
             }
         },
         {
