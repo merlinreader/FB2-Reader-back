@@ -10,7 +10,7 @@ import { nameEditDto } from "./dto/name-edit-dto.js";
 const router = new Router();
 
 router.get("/auth", (req, res) => {
-    res.redirect(`merlin:/?token=${req.query.token}`);
+    res.redirect(`merlin://main/profile?token=${req.query.token}`);
 });
 
 router.post("/login", Validator.validate(loginDto), UserController.login);
