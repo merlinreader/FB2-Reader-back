@@ -44,7 +44,7 @@ class StatisticService {
         const user = await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } }, { new: true });
         if (user.daysCounter >= 7) {
             user.achievements.spell.isReceived = true;
-            user.achievements.date = new Date();
+            user.achievements.spell.date = new Date();
         }
         user.save();
     }
