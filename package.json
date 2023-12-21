@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon -r dotenv/config .",
-    "add-words-to-db": "node -r dotenv/config ./scripts/add-nouns-db.js",
+    "add-words-to-db": "node ./scripts/add-nouns-db.js",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down"
   },
