@@ -4,6 +4,7 @@ import { Types } from "mongoose";
 import { TokenGuard } from "../common/middleware/token-guard.js";
 import { ACHIEVEMENTS_REGIONAL_AFFLICTION, ACHIEVEMENTS_REGIONAL_TEXT, ACHIEVEMENTS_TIME_AFFLICTION, ACHIEVEMENTS_TIME_TEXT } from "../models/achievements.js";
 import User from "../models/user.js";
+import Word from "../models/word.js";
 
 const picturesNames = ["rune", "blood", "stick", "dragon", "princess"];
 const datesNames = Object.values(ACHIEVEMENTS_TIME_AFFLICTION);
@@ -118,6 +119,11 @@ class UserService {
     async editAvatar(_id, name) {
         const { avatar } = await User.findByIdAndUpdate(_id, { avatar: { picture: `/achievements/${name}.png`, name } }, { new: true }).select("avatar");
         return { picture: `${process.env.APP_DOMAIN}${avatar.picture}` };
+    }
+
+    async checkWordsIsNoun(words) {
+        const nouns = await Word.find({ word: { $in: words } });
+        return nouns.map((document) => document.word);
     }
 }
 

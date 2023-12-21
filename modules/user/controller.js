@@ -94,6 +94,15 @@ class UserController {
             res.status(500).json({ message: SERVER_500_ERROR });
         }
     }
+
+    async checkNouns(req, res) {
+        try {
+            res.status(200).json({ words: await this.#userService.checkWordsIsNoun(req.body.words) });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({ message: SERVER_500_ERROR });
+        }
+    }
 }
 
 export default new UserController();
