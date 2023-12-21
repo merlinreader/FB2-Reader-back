@@ -36,6 +36,5 @@ const anonymStatisticSchema = Schema({
 });
 
 const anonymStatisticModel = model("anonym-statistics", anonymStatisticSchema);
-anonymStatisticModel.ensureIndexes();
 
 export default anonymStatisticModel;
