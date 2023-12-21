@@ -4,11 +4,17 @@ import { BaseModule } from "../server.js";
 export default class MongoAdapter extends BaseModule {
     #connectionString;
     #database;
+    #models = [];
 
     constructor({ host, login, password, database, port = 27017 }) {
         super();
         this.#database = database;
         this.#connectionString = `mongodb://${login}:${password}@${host}:${port}`;
+    }
+
+    registerIndexes(models) {
+        this.#models = models;
+        return this;
     }
 
     async handler(_) {
@@ -22,5 +28,9 @@ export default class MongoAdapter extends BaseModule {
             console.error("Unable connect to mongo-db");
             process.exit(1);
         }
+    }
+
+    async afterHandler(_) {
+        this.#models.forEach((model) => model.ensureIndexes());
     }
 }

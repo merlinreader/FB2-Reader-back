@@ -22,5 +22,6 @@ router.get("/avatars", TokenGuard.verify, UserController.getAccountAvatars);
 router.patch("/avatar", TokenGuard.verify, Validator.validate(avatarNameDto), UserController.patchAvatar);
 router.patch("/words", TokenGuard.verify, UserController.patchWords);
 router.get("/words", TokenGuard.verify, UserController.getWordsCount);
+router.post("/words/nouns", UserController.checkNouns);
 
 export default router;

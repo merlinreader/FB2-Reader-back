@@ -1,0 +1,35 @@
+/account/words/nouns:
+  post:
+    tags:
+      - User
+    summary: Check words are nouns
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ words ]
+            properties: 
+              words:
+                type: array
+                items:
+                  type: string
+                  example: стас
+
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [ words ]
+              properties: 
+                words:
+                  type: array
+                  items:
+                    type: string
+                    example: стас
+      "500":
+        $ref: '#definitions/error'

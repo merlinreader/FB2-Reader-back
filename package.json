@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node .",
     "start:dev": "nodemon -r dotenv/config .",
+    "add-words-to-db": "node -r dotenv/config ./scripts/add-nouns-db.js",
     "migrate:up": "migrate-mongo up",
     "migrate:down": "migrate-mongo down"
   },
@@ -35,7 +36,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.20",
     "prettier": "2.8.4",
-    "prettier-plugin-organize-imports": "^3.2.2"
+    "prettier-plugin-organize-imports": "^3.2.2",
+    "readline": "^1.3.0"
   },
   "nodemonConfig": {
     "ext": "js, json, yml, yaml"

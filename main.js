@@ -4,6 +4,7 @@ import Routing from "./core/routes.js";
 import Server from "./core/server.js";
 import SwaggerDoc from "./core/swagger.js";
 import Tasks from "./modules/jobs/_index.js";
+import EnsureIndexModels from "./modules/models/_ensure_indexes.js";
 import StatisticRouter from "./modules/statistic/router.js";
 import UserRouter from "./modules/user/router.js";
 
@@ -17,7 +18,7 @@ new Server(APP_PORT, [
         port: process.env.MG_PORT || 27017,
         login: process.env.MG_USER,
         password: process.env.MG_PASS
-    }),
+    }).registerIndexes(EnsureIndexModels),
     new Routing(GLOBAL_PREFIX, [
         { prefix: "/statistic", router: StatisticRouter },
         { prefix: "/account", router: UserRouter }

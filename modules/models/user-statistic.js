@@ -24,6 +24,5 @@ const userStatisticSchema = new Schema({
 });
 
 const userStatisticModel = model("user-statistics", userStatisticSchema);
-userStatisticModel.ensureIndexes();
 
 export default userStatisticModel;
