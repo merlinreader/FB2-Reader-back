@@ -1,5 +1,5 @@
 /account/words/nouns:
-  patch:
+  post:
     tags:
       - User
     summary: Check words are nouns

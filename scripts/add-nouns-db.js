@@ -11,7 +11,7 @@ new MongoAdapter({
     password: process.env.MG_PASS
 }).handler();
 
-const readStream = createReadStream("./scripts/helpers/words.txt");
+const readStream = createReadStream("./scripts/resources/words.txt");
 const rl = createInterface({
     input: readStream,
     crlfDelay: Infinity
