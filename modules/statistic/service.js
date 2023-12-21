@@ -41,12 +41,22 @@ class StatisticService {
     async saveUserStatistic(_id, data) {
         const statisticId = new Types.ObjectId();
         await new UserStatistic({ _id: statisticId, userId: _id, ...data }).save();
-        const user = await User.findOneAndUpdate({ _id }, { $inc: { daysCounter: 1 } }, { new: true });
-        if (user.daysCounter >= 7) {
-            user.achievements.spell.isReceived = true;
-            user.achievements.spell.date = new Date();
+        const user = await User.findById(_id);
+        if (!user.achievements.spell.isReceived) {
+            const aggregatedStatistics = await UserStatistic.aggregate([
+                {
+                    $group: {
+                        _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } }
+                    }
+                },
+                { $limit: 7 }
+            ]);
+            if (aggregatedStatistics.length >= 7) {
+                user.achievements.spell.isReceived = true;
+                user.achievements.spell.date = new Date();
+                user.save();
+            }
         }
-        user.save();
     }
 
     async getStatistic(data, period) {
