@@ -34,58 +34,24 @@ jobs:
     needs: [build-and-publish]
 
     steps:
-      # - name: getting src
-      #   uses: actions/checkout@v3
-      #   with:
-      #     ref: main
+      - name: getting src
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: YC Registry login
         uses: yc-actions/yc-cr-login@v1
         with:
           yc-sa-json-credentials: ${{ secrets.YC_CR }}
 
-      - name: pull artefacts
-        env:
-          VAULT_ADDRESS: https://vault.leam.pro/v1/repositories/data/merlin/backend-stage
+      - name: deploy app
         run: |
-          curl -sS -H "X-Vault-Token: ${{ secrets.VAULT_KEY }}" -X GET $VAULT_ADDRESS | jq ".data.data" >> secrets.json
           docker pull $CR_IMG
+          docker compose down || true
+          docker compose --env-file .env.stage up -d
 
-      - name: json2env
-        uses: ricosandyca/convert-env-json@main
-        with:
-          type: json-to-env
-          input_path: secrets.json
-          output_path: .env
-
-      - name: pull artefacts
+      - name: clean up
         run: |
-          pwd
-          ls -la
-
-  # deploy-app:
-  #   runs-on: [self-hosted, nexus, back]
-  #   needs: [build-and-publish]
-
-  #   steps:
-  #     - name: getting src
-  #       uses: actions/checkout@v3
-  #       with:
-  #         ref: main
-
-  #     - name: YC Registry login
-  #       uses: yc-actions/yc-cr-login@v1
-  #       with:
-  #         yc-sa-json-credentials: ${{ secrets.YC_CR }}
-
-  #     - name: deploy app
-  #       run: |
-  #         docker pull $CR_IMG
-  #         docker compose down || true
-  #         docker compose --env-file .env.stage up -d
-
-  #     - name: clean up
-  #       run: |
-  #         docker image prune -f
-  #         rm -rf ./*
-  #         rm -rf ./.??*
+          docker image prune -f
+          rm -rf ./*
+          rm -rf ./.??*
