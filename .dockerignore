@@ -1,6 +1,5 @@
 node_modules
-.env
-.env.stage
+.env*
 .eslintrc.cjs
 .prettierrc
 .gitignore
