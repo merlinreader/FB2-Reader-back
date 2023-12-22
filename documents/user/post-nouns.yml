@@ -2,6 +2,7 @@
   post:
     tags:
       - User
+    security: [ ]
     summary: Check words are nouns
     requestBody:
       required: true

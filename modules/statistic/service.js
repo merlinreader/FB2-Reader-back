@@ -79,7 +79,7 @@ class StatisticService {
             if (a[data.sortBy] == b[data.sortBy]) {
                 if (a[additionalSortKey] < b[additionalSortKey]) return 1;
                 if (a[additionalSortKey] > b[additionalSortKey]) return -1;
-                if (a[additionalSortKey] > b[additionalSortKey]) {
+                if (a[additionalSortKey] == b[additionalSortKey]) {
                     if (a.firstName < b.firstName) return 1;
                     if (a.firstName > b.firstName) return -1;
                 }

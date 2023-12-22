@@ -3,6 +3,7 @@ import { Validator } from "../../core/validation.js";
 import { TokenGuard } from "../common/middleware/token-guard.js";
 import UserController from "./controller.js";
 import { avatarNameDto } from "./dto/avatar-edit-dto.js";
+import { nounsCheckDto } from "./dto/check-words-dto.js";
 import { geoSetDTO } from "./dto/geo-edit-dto.js";
 import { loginDto } from "./dto/login-dto.js";
 import { nameEditDto } from "./dto/name-edit-dto.js";
@@ -22,6 +23,6 @@ router.get("/avatars", TokenGuard.verify, UserController.getAccountAvatars);
 router.patch("/avatar", TokenGuard.verify, Validator.validate(avatarNameDto), UserController.patchAvatar);
 router.patch("/words", TokenGuard.verify, UserController.patchWords);
 router.get("/words", TokenGuard.verify, UserController.getWordsCount);
-router.post("/words/nouns", UserController.checkNouns);
+router.post("/words/nouns", Validator.validate(nounsCheckDto), UserController.checkNouns);
 
 export default router;
