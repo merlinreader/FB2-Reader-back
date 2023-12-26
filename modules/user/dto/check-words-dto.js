@@ -1,5 +1,5 @@
 import * as yup from "yup";
 
 export const nounsCheckDto = yup.object().shape({
-    words: yup.array().of(yup.string().required())
+    words: yup.array().of(yup.string().required()).max(100)
 });
