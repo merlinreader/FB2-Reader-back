@@ -26,7 +26,7 @@ jobs:
 
       - name: build docker
         run: |
-          docker build -t $CR_IMG . --label "io.portainer.accesscontrol.teams=fb2-reader"
+          docker build -t $CR_IMG .
           docker push $CR_IMG
 
   deploy-app:

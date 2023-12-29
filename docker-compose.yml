@@ -5,6 +5,8 @@ services:
     image: mongo
     container_name: fb2-mongo
     restart: always
+    labels:
+      - io.portainer.accesscontrol.teams=fb2-reader
     ports:
       - 30010:27017
     environment:
