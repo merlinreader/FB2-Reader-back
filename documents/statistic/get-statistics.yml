@@ -64,5 +64,8 @@
                   city:
                     type: string
                     example: Tomsk
+                  picture:
+                    type: string
+                    example: http://localhost:5000/achievements/rune1.png
       "500":
         $ref: '#definitions/error'

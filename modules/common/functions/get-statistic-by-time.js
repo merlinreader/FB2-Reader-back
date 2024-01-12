@@ -20,8 +20,16 @@ export const aggregateUserStatistic = async (firstDate, lastDate) => {
             }
         },
         {
+            $addFields: {
+                picture: {
+                    $concat: [`${process.env.APP_DOMAIN}`, { $arrayElemAt: ["$user.avatar.picture", 0] }]
+                }
+            }
+        },
+        {
             $project: {
                 _id: true,
+                picture: true,
                 telegramId: "$user.telegramId",
                 firstName: "$user.firstName",
                 country: "$user.country",
@@ -35,7 +43,8 @@ export const aggregateUserStatistic = async (firstDate, lastDate) => {
         { $unwind: "$firstName" },
         { $unwind: "$country" },
         { $unwind: "$area" },
-        { $unwind: "$city" }
+        { $unwind: "$city" },
+        { $unwind: "$picture" }
     ]);
 };
 
@@ -55,6 +64,7 @@ export const aggregateAnonymStatistic = async (firstDate, lastDate) => {
         {
             $project: {
                 _id: true,
+                picture: `${process.env.APP_DOMAIN}/achievements/default_avatar.png`,
                 firstName: "merlin",
                 totalPageCountSimpleMode: true,
                 totalPageCountWordMode: true,
