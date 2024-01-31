@@ -54,18 +54,26 @@ class UserService {
 
     async loginUser(data) {
         const userFound = await User.findOne({ telegramId: data.telegramId });
+        let lastAuth;
         if (userFound) {
+            lastAuth = userFound.lastAuth;
+            userFound.lastAuth = new Date();
+            await userFound.save();
             return {
+                lastAuth,
                 token: await TokenGuard.generate(_.pick(userFound, "_id", "telegramId"))
             };
         }
         const userId = new Types.ObjectId();
+        lastAuth = new Date();
         await new User({
             _id: userId,
+            lastAuth,
             achievements: this.#createAchievements(),
             ...data
         }).save();
         return {
+            lastAuth,
             token: await TokenGuard.generate({ _id: userId, telegramId: data.telegramId })
         };
     }
