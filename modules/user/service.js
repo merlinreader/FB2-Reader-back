@@ -54,8 +54,9 @@ class UserService {
 
     async loginUser(data) {
         const userFound = await User.findOne({ telegramId: data.telegramId });
-        let { lastAuth } = userFound;
+        let lastAuth;
         if (userFound) {
+            lastAuth = userFound.lastAuth;
             userFound.lastAuth = new Date();
             await userFound.save();
             return {
