@@ -44,6 +44,10 @@ const avatarSchema = {
 };
 
 const userSchema = new Schema({
+    lastAuth: {
+        type: Date,
+        required: true
+    },
     telegramId: {
         type: String,
         required: true
