@@ -9,7 +9,7 @@ import Word from "../models/word.js";
 const picturesNames = ["rune", "blood", "stick", "dragon", "princess"];
 const datesNames = Object.values(ACHIEVEMENTS_TIME_AFFLICTION);
 const regionalNames = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
-const appMode = { SIMPLE: "страницы", WORD: '"Слово"' };
+const appMode = { SIMPLE: "страницы", WORD: "Слово" };
 
 class UserService {
     #createAchievements() {
@@ -47,8 +47,8 @@ class UserService {
                 description: "7 дней с нами",
                 isReceived: false
             },
-            wordModeAchievements: nonReceivedAchievementsSimpleMode,
-            simpleModeAchievements: nonReceivedAchievementsWordMode
+            wordModeAchievements: nonReceivedAchievementsWordMode,
+            simpleModeAchievements: nonReceivedAchievementsSimpleMode
         };
     }
 
