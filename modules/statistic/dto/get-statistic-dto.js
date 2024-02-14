@@ -15,6 +15,7 @@ export const PERIOD = {
 };
 
 export const getStatisticsDto = yup.object().shape({
+    country: yup.string(),
     area: yup.string(),
     city: yup.string(),
     sortBy: yup.string().oneOf(Object.values(SORT_FIELDS)).required()
