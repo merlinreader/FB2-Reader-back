@@ -6,10 +6,15 @@
     summary: Get annual statistics
     parameters:
       - in: query
+        name: country
+        schema:
+          type: string
+          example: Russia
+      - in: query
         name: area
         schema:
           type: string
-          example: Tomskaya
+          example: "Tomskaya oblost'"
       - in: query
         name: city
         schema:

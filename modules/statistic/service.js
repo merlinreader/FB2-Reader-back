@@ -65,6 +65,9 @@ class StatisticService {
         const usersStatistics = await aggregateUserStatistic(startDate, endDate);
         const anonymsStatistics = await aggregateAnonymStatistic(startDate, endDate);
         const generalStatistic = [...usersStatistics, ...anonymsStatistics].filter((item) => {
+            if (data.country && item.country !== data.country) {
+                return false;
+            }
             if (data.area && item.area !== data.area) {
                 return false;
             }

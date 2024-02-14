@@ -1,9 +1,9 @@
 import JobsWithAchievements from "./receive_achievements.js";
 
 export default [
-    { time: "00 00 00 * * *", job: JobsWithAchievements.setDailyAchievements },
-    { time: "00 00 00 * * 0", job: JobsWithAchievements.setWeeklyAchievements },
-    { time: "00 00 00 * * *", job: JobsWithAchievements.setMonthlyAchievements },
-    { time: "00 00 00 * */6 *", job: JobsWithAchievements.setSemiAnnualAchievements },
-    { time: "00 00 00 * 12 *", job: JobsWithAchievements.setYearAchievements }
+    { time: "0 0 * * *", job: JobsWithAchievements.setDailyAchievements },
+    { time: "0 0 * * 1", job: JobsWithAchievements.setWeeklyAchievements },
+    { time: "0 0 1 * *", job: JobsWithAchievements.setMonthlyAchievements },
+    { time: "0 0 1 */6 *", job: JobsWithAchievements.setSemiAnnualAchievements },
+    { time: "0 0 1 1 *", job: JobsWithAchievements.setYearAchievements }
 ];
