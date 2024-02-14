@@ -65,7 +65,7 @@ export const aggregateAnonymStatistic = async (firstDate, lastDate) => {
             $project: {
                 _id: true,
                 picture: `${process.env.APP_DOMAIN}/achievements/default_avatar.png`,
-                firstName: "merlin",
+                firstName: "Merlin",
                 totalPageCountSimpleMode: true,
                 totalPageCountWordMode: true,
                 country: true,
