@@ -11,7 +11,7 @@ class JobsWithAchievements {
         autoBind(this);
     }
 
-    async #setDateInterval(timeAffliction) {
+    #setDateInterval(timeAffliction) {
         // eslint-disable-next-line default-case
         const endDate = new Date();
         endDate.setDate(endDate.getDate() - 1);
