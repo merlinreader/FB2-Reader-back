@@ -1,0 +1,30 @@
+/account/geo-by-names:
+  patch:
+    tags:
+      - User
+    summary: Edit user's country and city by loc names
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ country, city, area ]
+            properties:
+              country:
+                type: string
+                example: "Russia"
+              city:
+                type: string
+                example: "Tomsk"
+              area:
+                type: string
+                example: "Tomskaya oblast"
+
+    responses:
+      "200":
+        description: OK
+      "401":
+        $ref: '#definitions/unauthorized'
+      "500":
+        $ref: '#definitions/error'

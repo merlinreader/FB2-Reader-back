@@ -1,4 +1,5 @@
 /* eslint-disable array-callback-return */
+// eslint-disable-next-line import/no-extraneous-dependencies
 import axios from "axios";
 import _ from "lodash";
 import { Types } from "mongoose";
@@ -79,7 +80,11 @@ class UserService {
         };
     }
 
-    async editGeo(_id, data) {
+    async editGeoByNames(_id, data) {
+        return await User.findByIdAndUpdate(_id, data);
+    }
+
+    async editGeoByCoords(_id, data) {
         const { latitude, longitude } = data;
         const response = await axios.get(
             `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`

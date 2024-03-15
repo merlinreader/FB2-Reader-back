@@ -1,8 +1,8 @@
-/account/geo:
+/account/geo-by-coords:
   patch:
     tags:
       - User
-    summary: Edit user's country and city
+    summary: Edit user's country and city bu coords
     requestBody:
       required: true
       content:
