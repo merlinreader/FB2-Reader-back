@@ -1,4 +1,5 @@
 /* eslint-disable array-callback-return */
+import axios from "axios";
 import _ from "lodash";
 import { Types } from "mongoose";
 import { TokenGuard } from "../common/middleware/token-guard.js";
@@ -79,7 +80,17 @@ class UserService {
     }
 
     async editGeo(_id, data) {
-        return await User.findByIdAndUpdate(_id, data);
+        const { latitude, longitude } = data;
+        const response = await axios.get(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+        );
+        const location = {
+            country: response.data.countryName,
+            area: response.data.principalSubdivision,
+            city: response.data.city
+        };
+        await User.findByIdAndUpdate(_id, location);
+        return location;
     }
 
     async editName(_id, data) {
