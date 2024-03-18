@@ -1,0 +1,41 @@
+/account/geo-by-coords:
+  patch:
+    tags:
+      - User
+    summary: Edit user's country and city bu coords
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [ latitude, longitude ]
+            properties:
+              latitude:
+                type: number
+                example: 55.722058
+              longitude:
+                type: number
+                example: 37.276458
+  
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                country:
+                  type: string
+                  example: "Russia"
+                city:
+                  type: string
+                  example: "Tomsk"
+                area:
+                  type: string
+                  example: "Tomskaya oblast"
+      "401":
+        $ref: '#definitions/unauthorized'
+      "500":
+        $ref: '#definitions/error'

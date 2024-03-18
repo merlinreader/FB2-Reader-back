@@ -1,8 +1,8 @@
-/account/geo:
+/account/geo-by-names:
   patch:
     tags:
       - User
-    summary: Edit user's country and city
+    summary: Edit user's country and city by loc names
     requestBody:
       required: true
       content:
@@ -20,7 +20,7 @@
               area:
                 type: string
                 example: "Tomskaya oblast"
-  
+
     responses:
       "200":
         description: OK
