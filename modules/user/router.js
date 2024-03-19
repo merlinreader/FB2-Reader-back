@@ -4,7 +4,7 @@ import { TokenGuard } from "../common/middleware/token-guard.js";
 import UserController from "./controller.js";
 import { avatarNameDto } from "./dto/avatar-edit-dto.js";
 import { nounsCheckDto } from "./dto/check-words-dto.js";
-import { geoByCoordsDTO, geoByNamesDTO } from "./dto/geo-edit-dto.js";
+import { geoByCoordsDTO } from "./dto/geo-edit-dto.js";
 import { loginDto } from "./dto/login-dto.js";
 import { nameEditDto } from "./dto/name-edit-dto.js";
 
@@ -16,7 +16,7 @@ router.get("/auth", (req, res) => {
 
 router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
-router.patch("/geo-by-names", TokenGuard.verify, Validator.validate(geoByNamesDTO), UserController.editGeoByNames);
+router.get("/geo-by-coords", Validator.validate(geoByCoordsDTO), UserController.getGeoByCoords);
 router.patch("/geo-by-coords", TokenGuard.verify, Validator.validate(geoByCoordsDTO), UserController.editGeoByCoords);
 router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
 router.get("/achievements", TokenGuard.verify, UserController.getAchievements);

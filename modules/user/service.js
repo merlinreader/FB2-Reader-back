@@ -14,6 +14,18 @@ const regionalNames = Object.values(ACHIEVEMENTS_REGIONAL_AFFLICTION);
 const appMode = { SIMPLE: "страницы", WORD: "Слово" };
 
 class UserService {
+    async getLocationByCoords(data) {
+        const { latitude, longitude } = data;
+        const response = await axios.get(
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`
+        );
+        return {
+            country: response.data.countryName,
+            area: response.data.principalSubdivision,
+            city: response.data.city
+        };
+    }
+
     #createAchievements() {
         const nonReceivedAchievementsSimpleMode = Object.values(ACHIEVEMENTS_REGIONAL_TEXT).flatMap((regional, regionalIndex) => {
             return Object.values(ACHIEVEMENTS_TIME_TEXT).map((date, dateIndex) => ({
@@ -80,20 +92,8 @@ class UserService {
         };
     }
 
-    async editGeoByNames(_id, data) {
-        return await User.findByIdAndUpdate(_id, data);
-    }
-
     async editGeoByCoords(_id, data) {
-        const { latitude, longitude } = data;
-        const response = await axios.get(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`
-        );
-        const location = {
-            country: response.data.countryName,
-            area: response.data.principalSubdivision,
-            city: response.data.city
-        };
+        const location = await this.getLocationByCoords(data);
         await User.findByIdAndUpdate(_id, location);
         return location;
     }
