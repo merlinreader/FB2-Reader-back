@@ -87,7 +87,7 @@ class UserService {
     async editGeoByCoords(_id, data) {
         const { latitude, longitude } = data;
         const response = await axios.get(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`
         );
         const location = {
             country: response.data.countryName,
