@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Validator } from "../../core/validation.js";
+import { Validator, CONTEXT } from "../../core/validation.js";
 import { TokenGuard } from "../common/middleware/token-guard.js";
 import UserController from "./controller.js";
 import { avatarNameDto } from "./dto/avatar-edit-dto.js";
@@ -16,7 +16,7 @@ router.get("/auth", (req, res) => {
 
 router.post("/login", Validator.validate(loginDto), UserController.login);
 router.get("/", TokenGuard.verify, UserController.getSelfData);
-router.get("/geo-by-coords", Validator.validate(geoByCoordsDTO), UserController.getGeoByCoords);
+router.get("/geo-by-coords", Validator.validate(geoByCoordsDTO, CONTEXT.QUERY), UserController.getGeoByCoords);
 router.patch("/geo-by-coords", TokenGuard.verify, Validator.validate(geoByCoordsDTO), UserController.editGeoByCoords);
 router.patch("/name", TokenGuard.verify, Validator.validate(nameEditDto), UserController.editName);
 router.get("/achievements", TokenGuard.verify, UserController.getAchievements);

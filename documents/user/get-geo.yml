@@ -2,23 +2,20 @@
   get:
     tags:
       - User
-    summary: Get user's country and city bu coords
+    summary: Get user's country and city by coords
     security: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            type: object
-            required: [ latitude, longitude ]
-            properties:
-              latitude:
-                type: number
-                example: 55.722058
-              longitude:
-                type: number
-                example: 37.276458
-  
+    parameters:
+      - in: query
+        name: latitude
+        schema:
+          type: string
+          example: 55.722058
+      - in: query
+        name: longitude
+        schema:
+          type: string
+          example: 55.722058
+    
     responses:
       "200":
         description: OK
