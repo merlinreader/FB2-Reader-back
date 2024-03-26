@@ -33,6 +33,9 @@
               date:
                 type: string
                 format: date-time
+              startRecording:
+                type: string
+                format: date-time
   
     responses:
       "200":

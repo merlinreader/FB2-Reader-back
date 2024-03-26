@@ -17,6 +17,10 @@ const anonymStatisticSchema = Schema({
         type: String,
         required: true
     },
+    startReading: {
+        type: Date,
+        required: true
+    },
     date: {
         type: Date,
         index: true,
