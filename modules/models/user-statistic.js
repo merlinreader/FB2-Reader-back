@@ -11,6 +11,10 @@ const userStatisticSchema = new Schema({
         default: Date.now,
         expires: "1y"
     },
+    startReading: {
+        type: Date,
+        required: true
+    },
     pageCountSimpleMode: {
         type: Number,
         min: 0,
