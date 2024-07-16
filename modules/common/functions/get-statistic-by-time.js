@@ -2,7 +2,7 @@ import AnonymStatistic from "../../models/anonym-statistic.js";
 import UserStatistic from "../../models/user-statistic.js";
 
 export const aggregateUserStatistic = async (firstDate, lastDate) => {
-    return await UserStatistic.aggregate([
+    return UserStatistic.aggregate([
         { $match: { date: { $gte: firstDate, $lte: lastDate } } },
         {
             $group: {
@@ -49,7 +49,7 @@ export const aggregateUserStatistic = async (firstDate, lastDate) => {
 };
 
 export const aggregateAnonymStatistic = async (firstDate, lastDate) => {
-    return await AnonymStatistic.aggregate([
+    return AnonymStatistic.aggregate([
         { $match: { date: { $gte: firstDate, $lte: lastDate } } },
         {
             $group: {

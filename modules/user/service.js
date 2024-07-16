@@ -17,7 +17,7 @@ class UserService {
     async getLocationByCoords(data) {
         const { latitude, longitude } = data;
         const response = await axios.get(
-            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=ru`
+            `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
         );
         return {
             country: response.data.countryName,

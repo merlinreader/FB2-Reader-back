@@ -39,7 +39,7 @@ Server.prototype.initServices = async function () {
 };
 
 Server.prototype.run = function (callback) {
-    this.app.listen(this.port, callback).setTimeout(TIMEOUT);
+    this.app.listen(this.port, "0.0.0.0", callback).setTimeout(TIMEOUT);
 };
 
 export default Server;
