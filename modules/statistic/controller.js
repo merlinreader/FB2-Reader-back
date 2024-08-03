@@ -32,7 +32,12 @@ class StatisticController {
 
     async getStatistic(req, res) {
         try {
-            const statistics = await this.#StatisticService.getStatistic(req.query, req.params.period);
+            if (req.headers["user-agent"] === "Merlin/1.0") {
+                const statistics = await this.#StatisticService.getStatistic(req.query, req.params.period);
+                res.status(200).json(statistics);
+                return;
+            }
+            const statistics = await this.#StatisticService.getStatisticOld(req.query, req.params.period);
             res.status(200).json(statistics);
         } catch (error) {
             console.log(error.message);

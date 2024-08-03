@@ -90,5 +90,25 @@ class StatisticService {
             return 0;
         });
     }
+    async getStatisticOld(data, period) {
+        const [additionalSortKey] = Object.values(SORT_FIELDS).filter((sortKey) => sortKey != data.sortBy);
+        const { startDate, endDate } = await this.#getPeriod(period);
+        const usersStatistics = await aggregateUserStatistic(startDate, endDate);
+        const anonymsStatistics = await aggregateAnonymStatistic(startDate, endDate);
+        const generalStatistic = [...usersStatistics, ...anonymsStatistics];
+        return generalStatistic.sort((a, b) => {
+            if (a[data.sortBy] < b[data.sortBy]) return 1;
+            if (a[data.sortBy] > b[data.sortBy]) return -1;
+            if (a[data.sortBy] == b[data.sortBy]) {
+                if (a[additionalSortKey] < b[additionalSortKey]) return 1;
+                if (a[additionalSortKey] > b[additionalSortKey]) return -1;
+                if (a[additionalSortKey] == b[additionalSortKey]) {
+                    if (a.firstName < b.firstName) return 1;
+                    if (a.firstName > b.firstName) return -1;
+                }
+            }
+            return 0;
+        });
+    }
 }
 export default StatisticService;
