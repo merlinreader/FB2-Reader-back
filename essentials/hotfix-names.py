@@ -1,7 +1,7 @@
 import psycopg2
 
 
-con = psycopg2.connect("dbname=postgres user=postgres host=localhost password=7G10jVrsOcqSmjBfmXm6BoJxy")
+con = psycopg2.connect("dbname=postgres user=postgres host=localhost password=")
 def delimited(file, delimiter='|', bufsize=4096):
     buf = ''
     while True:
