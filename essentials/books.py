@@ -9,7 +9,7 @@ with open('nouns', 'r') as f:
     for i in f:
         st.add(i.strip().lower())
 
-con = psycopg2.connect("dbname=books user=admin host=localhost password=7G10jVrsOcqSmjBfmXm6BoJxy")
+con = psycopg2.connect("dbname=books user=admin host=localhost password=")
 with con.cursor() as cur:
     for i in Path('book/').rglob('*.txt'):
         print(i)
